@@ -17,12 +17,12 @@ class Appointment extends Model
         'finish_time',
         'comments',
     ];
- 
+
     public function type(): BelongsTo
     {
         return $this->belongsTo(AppointmentType::class, 'appointment_type_id', 'id');
     }
- 
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
