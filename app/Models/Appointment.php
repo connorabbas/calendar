@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -18,9 +19,9 @@ class Appointment extends Model
         'comments',
     ];
 
-    public function type(): BelongsTo
+    public function type(): HasOne
     {
-        return $this->belongsTo(AppointmentType::class, 'appointment_type_id', 'id');
+        return $this->hasOne(AppointmentType::class, 'appointment_type_id', 'id');
     }
 
     public function user(): BelongsTo
