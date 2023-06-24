@@ -12,8 +12,8 @@ return new class () extends Migration {
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('appointment_type_id')->constrained();
+            $table->foreignId('user_id');
+            $table->foreignId('appointment_type_id');
             $table->datetime('start_time');
             $table->datetime('finish_time');
             $table->longText('comments')->nullable();
