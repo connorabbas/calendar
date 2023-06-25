@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col">
             <div id="app">
-                <main-app></main-app>
+                <main-app :events="{{ json_encode($events) }}"></main-app>
             </div>
         </div>
     </div>

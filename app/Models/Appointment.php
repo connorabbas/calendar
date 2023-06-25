@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,6 +18,10 @@ class Appointment extends Model
         'start_time',
         'finish_time',
         'comments',
+    ];
+    protected $casts = [
+        'start_time' => 'datetime',
+        'finish_time' => 'datetime',
     ];
 
     public function type(): HasOne
