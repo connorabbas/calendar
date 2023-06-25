@@ -17,7 +17,7 @@ class AppointmentSeeder extends Seeder
     {
 
         $types = AppointmentType::factory()
-            ->count(10)
+            ->count(5)
             ->create();
 
         $users = User::factory()
