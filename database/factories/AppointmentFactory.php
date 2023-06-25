@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use DateInterval;
+use App\Models\User;
+use App\Models\AppointmentType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,8 +24,8 @@ class AppointmentFactory extends Factory
         $finishDate = (clone $startDate)->add(new DateInterval("PT{$hoursOff}H"));
 
         return [
-            'user_id' => fake()->randomNumber(3),
-            'appointment_type_id' => fake()->randomNumber(1),
+            'user_id' => User::factory(),
+            'appointment_type_id' => AppointmentType::factory(),
             'start_time' => $startDate,
             'finish_time' => $finishDate,
             'comments' => fake()->paragraph()

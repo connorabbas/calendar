@@ -21,7 +21,7 @@ class Appointment extends Model
 
     public function type(): HasOne
     {
-        return $this->hasOne(AppointmentType::class, 'appointment_type_id', 'id');
+        return $this->hasOne(AppointmentType::class, 'id', 'appointment_type_id');
     }
 
     public function user(): BelongsTo

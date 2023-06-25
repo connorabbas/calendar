@@ -17,7 +17,7 @@ class AppointmentTypeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => 'Test Appointment Type: ' . fake()->word()
+            'name' => 'Appointment Type: ' . fake()->word()
         ];
     }
 }

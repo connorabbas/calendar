@@ -15,19 +15,19 @@ class AppointmentSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            AppointmentTypeSeeder::class,
-        ]);
-        
-        collect(range(0, 20))
-            ->each(function () {
-                User::factory()
-                    ->has(
-                        Appointment::factory()->recycle(AppointmentType::inRandomOrder()->get())->times(rand(1, 5)),
-                        'appointments'
-                    )
-                    ->create();
-            });
-        
+
+        $types = AppointmentType::factory()
+            ->count(10)
+            ->create();
+
+        $users = User::factory()
+            ->count(10)
+            ->create();
+
+        Appointment::factory()
+            ->recycle($types)
+            ->recycle($users)
+            ->count(30)
+            ->create();  
     }
 }
