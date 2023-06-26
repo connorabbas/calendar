@@ -51,13 +51,14 @@ export default {
     },
     methods: {
         handleWeekendsToggle() {
-            this.calendarOptions.weekends = !this.calendarOptions.weekends // update a property
+            this.calendarOptions.weekends = !this.calendarOptions.weekends;
         },
         handleDateSelect(selectInfo) {
             alert('date clicked');
         },
         handleEventClick(clickInfo) {
-            alert('clicked event')
+            console.log(clickInfo);
+            alert(JSON.stringify(clickInfo));
         },
     }
 }
