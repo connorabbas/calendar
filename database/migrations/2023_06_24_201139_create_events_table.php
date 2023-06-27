@@ -10,10 +10,10 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('appointments', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('appointment_type_id');
+            $table->foreignId('event_type_id');
             $table->datetime('start_time');
             $table->datetime('finish_time');
             $table->longText('comments')->nullable();
@@ -26,6 +26,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('appointments');
+        Schema::dropIfExists('events');
     }
 };

@@ -2,16 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\AppointmentType;
+use App\Models\EventType;
 use Illuminate\Database\Seeder;
 
-class AppointmentTypeSeeder extends Seeder
+class EventTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        AppointmentType::factory()->count(10)->create();
+        EventType::factory()->count(10)->create();
     }
 }

@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Appointment extends Model
+class Event extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_id',
-        'appointment_type_id',
+        'event_type_id',
         'start_time',
         'finish_time',
         'comments',
@@ -25,7 +25,7 @@ class Appointment extends Model
 
     public function type(): HasOne
     {
-        return $this->hasOne(AppointmentType::class, 'id', 'appointment_type_id');
+        return $this->hasOne(EventType::class, 'id', 'event_type_id');
     }
 
     public function user(): BelongsTo

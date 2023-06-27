@@ -3,14 +3,14 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Appointment;
-use App\Models\AppointmentType;
+use App\Models\Event;
+use App\Models\EventType;
 use Illuminate\Database\Seeder;
 
 /**
- * php artisan db:seed --class=AppointmentSeeder
+ * php artisan db:seed --class=EventSeeder
  */
-class AppointmentSeeder extends Seeder
+class EventSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,14 +18,14 @@ class AppointmentSeeder extends Seeder
     public function run(): void
     {
 
-        $types = AppointmentType::factory()
+        $types = EventType::factory()
             ->count(10)
             ->create();
         $users = User::factory()
             ->count(1000)
             ->create();
 
-        Appointment::factory()
+        Event::factory()
             ->recycle($types)
             ->recycle($users)
             ->count(1000)

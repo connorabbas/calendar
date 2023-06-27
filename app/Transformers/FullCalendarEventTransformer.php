@@ -3,20 +3,20 @@
 namespace App\Transformers;
 
 use App\DataTransferObjects\FullCalendarEvent;
-use App\Models\Appointment;
+use App\Models\Event;
 
 class FullCalendarEventTransformer
 {
-    public static function fromAppointment(Appointment $appointment): FullCalendarEvent
+    public static function fromEvent(Event $event): FullCalendarEvent
     {
         $event = new FullCalendarEvent(
-            id: $appointment->id,
-            start: $appointment->start_time,
-            end: $appointment->finish_time,
-            title: $appointment->user->name . ' - ' . $appointment->type->name,
+            id: $event->id,
+            start: $event->start_time,
+            end: $event->finish_time,
+            title: $event->user->name . ' - ' . $event->type->name,
             extendedProps: [
-                'user' => $appointment->user,
-                'appointment_type' => $appointment->type,
+                'user' => $event->user,
+                'event_type' => $event->type,
             ],
         );
 

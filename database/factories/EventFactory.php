@@ -4,13 +4,13 @@ namespace Database\Factories;
 
 use DateInterval;
 use App\Models\User;
-use App\Models\AppointmentType;
+use App\Models\EventType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Appointment>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Event>
  */
-class AppointmentFactory extends Factory
+class EventFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -25,7 +25,7 @@ class AppointmentFactory extends Factory
 
         return [
             'user_id' => User::factory(),
-            'appointment_type_id' => AppointmentType::factory(),
+            'event_type_id' => EventType::factory(),
             'start_time' => $startDate,
             'finish_time' => $finishDate,
             'comments' => fake()->paragraph()
