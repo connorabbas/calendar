@@ -9,15 +9,19 @@ use DateTime;
  */
 class FullCalendarEvent
 {
-    public int $id;
-    public bool $allDay = false;
-    public DateTime $start;
-    public DateTime $end;
-    public string $title;
-    public bool $editable = true;
-    public string $display;
-    public string $backgroundColor;
-    public string $borderColor;
-    public string $textColor;
-    public array $extendedProps;
+    // TODO: figure out required properties
+    public function __construct(
+        public readonly  int $id,
+        public readonly DateTime $start,
+        public readonly DateTime $end,
+        public readonly string $title,
+        public readonly bool|null $allDay = false,
+        public readonly bool|null $editable = true,
+        //public readonly string|null $display = null,
+        //public readonly string|null $backgroundColor = null,
+        //public readonly string|null $borderColor = null,
+        //public readonly string|null $textColor = null,
+        public readonly array|null $extendedProps = null,
+    ) {
+    }
 }

@@ -14,6 +14,10 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import bootstrap5Plugin from '@fullcalendar/bootstrap5'
 
+/**
+ * https://fullcalendar.io/docs/multimonth-grid
+ * https://fullcalendar.io/blog/2023/01/multimonth-and-more
+ */
 export default {
     components: {
         FullCalendar

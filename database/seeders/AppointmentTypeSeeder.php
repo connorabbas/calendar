@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\AppointmentType;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class AppointmentTypeSeeder extends Seeder

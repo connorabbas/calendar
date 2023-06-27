@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Appointment;
 use App\Services\CalendarService;
 use Illuminate\Http\Request;
 

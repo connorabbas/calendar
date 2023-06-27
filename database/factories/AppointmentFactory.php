@@ -19,7 +19,7 @@ class AppointmentFactory extends Factory
      */
     public function definition(): array
     {
-        $startDate = fake()->dateTimeBetween('-2 week', '+2 week');
+        $startDate = fake()->dateTimeBetween('-1 year', '+1 year');
         $hoursOff = fake()->numberBetween(0, 8);
         $finishDate = (clone $startDate)->add(new DateInterval("PT{$hoursOff}H"));
 

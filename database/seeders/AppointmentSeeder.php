@@ -6,8 +6,10 @@ use App\Models\User;
 use App\Models\Appointment;
 use App\Models\AppointmentType;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+/**
+ * php artisan db:seed --class=AppointmentSeeder
+ */
 class AppointmentSeeder extends Seeder
 {
     /**
@@ -17,17 +19,16 @@ class AppointmentSeeder extends Seeder
     {
 
         $types = AppointmentType::factory()
-            ->count(5)
-            ->create();
-
-        $users = User::factory()
             ->count(10)
+            ->create();
+        $users = User::factory()
+            ->count(1000)
             ->create();
 
         Appointment::factory()
             ->recycle($types)
             ->recycle($users)
-            ->count(30)
-            ->create();  
+            ->count(1000)
+            ->create();
     }
 }
