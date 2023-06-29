@@ -16,6 +16,6 @@ Route::controller(EventController::class)
     ->prefix('/events')
     ->name('events.')
     ->group(function () {
-        Route::get('/', 'all')->name('all');
+        Route::get('/', 'search')->name('search');
         Route::get('/{id}', 'get')->name('single');
     });

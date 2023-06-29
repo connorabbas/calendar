@@ -3,11 +3,12 @@
 namespace App\Services;
 
 use App\Models\Event;
+use App\DataTransferObjects\FullCalendarEvent;
 use App\Transformers\FullCalendarEventTransformer;
 
 class CalendarService
 {
-    public function getFullCalendarEvents()
+    public function getFullCalendarEvents(): array
     {
         $calendarEvents = [];
         $events = Event::all();
@@ -19,7 +20,7 @@ class CalendarService
         return $calendarEvents;
     }
 
-    public function getFullCalendarEvent($id)
+    public function getFullCalendarEvent($id): FullCalendarEvent
     {
         $event = Event::with(['type', 'user'])->findOrFail($id);
 
