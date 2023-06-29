@@ -10,12 +10,13 @@ Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// TODO: add auth middleware
-Route::get('/calendar', [CalendarController::class, 'index'])->name('index');
-Route::controller(EventController::class)
-    ->prefix('/events')
-    ->name('events.')
-    ->group(function () {
-        Route::get('/', 'search')->name('search');
-        Route::get('/{id}', 'get')->name('single');
-    });
+Route::middleware('auth')->group(function () {
+    Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
+    Route::controller(EventController::class)
+        ->prefix('/events')
+        ->name('events.')
+        ->group(function () {
+            Route::get('/', 'search')->name('search');
+            Route::get('/{id}', 'get')->name('single');
+        });
+});
