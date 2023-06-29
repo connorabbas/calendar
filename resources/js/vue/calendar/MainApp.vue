@@ -8,6 +8,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-icons/font/bootstrap-icons.css'; // needs additional webpack config!
 
+import axios from 'axios';
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -22,11 +23,9 @@ export default {
     components: {
         FullCalendar
     },
-    props: {
-        events: Array
-    },
     data() {
         return {
+            eventsData: [],
             calendarOptions: {
                 headerToolbar: {
                     left: 'prev,next today',
@@ -39,10 +38,9 @@ export default {
                     timeGridPlugin,
                     interactionPlugin
                 ],
-                initialEvents: this.$props.events,
                 initialView: 'dayGridMonth',
                 themeSystem: 'bootstrap5',
-                editable: true,
+                editable: false,
                 selectable: true,
                 selectMirror: true,
                 dayMaxEvents: true,
@@ -54,8 +52,14 @@ export default {
         }
     },
     methods: {
-        handleWeekendsToggle() {
-            this.calendarOptions.weekends = !this.calendarOptions.weekends;
+        getInitialEvents() {
+            axios.get('/events') // TODO: install ziggy
+                .then((response) => {
+                    this.calendarOptions.events = response.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         },
         handleDateSelect(selectInfo) {
             alert('date clicked');
@@ -64,6 +68,9 @@ export default {
             console.log(clickInfo);
             alert(JSON.stringify(clickInfo));
         },
+    },
+    mounted() {
+        this.getInitialEvents();
     }
 }
 </script>

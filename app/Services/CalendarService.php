@@ -7,16 +7,22 @@ use App\Transformers\FullCalendarEventTransformer;
 
 class CalendarService
 {
-    public function getCalendarEvents()
+    public function getFullCalendarEvents()
     {
-        $events = [];
-        //$events = Event::with('type', 'user')->get(); // behaving weirdly, eager load lazily instead
+        $calendarEvents = [];
         $events = Event::all();
         $events->load(['type', 'user']);
         foreach ($events as $event) {
-            $events[] = FullCalendarEventTransformer::fromEvent($event);
+            $calendarEvents[] = FullCalendarEventTransformer::fromEvent($event);
         }
 
-        return $events;
+        return $calendarEvents;
+    }
+
+    public function getFullCalendarEvent($id)
+    {
+        $event = Event::with(['type', 'user'])->findOrFail($id);
+
+        return FullCalendarEventTransformer::fromEvent($event);
     }
 }
