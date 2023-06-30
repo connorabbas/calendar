@@ -1,6 +1,6 @@
 <template>
     <div>
-        <FullCalendar :options="calendar" />
+        <FullCalendar ref="fullCalendar" :options="calendar" />
     </div>
 </template>
 
@@ -12,6 +12,7 @@ import axios from 'axios';
 import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import multiMonthPlugin from '@fullcalendar/multimonth'
 import interactionPlugin from '@fullcalendar/interaction';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 
@@ -28,16 +29,26 @@ export default {
     },
     data() {
         return {
+            events: [],
             calendar: {
+                customButtons: {
+                    refreshButton: {
+                        text: 'Refresh',
+                        click: () => {
+                            this.getEvents()
+                        }
+                    }
+                },
                 headerToolbar: {
-                    left: 'prev,next today',
+                    left: 'prev,next today refreshButton',
                     center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    right: 'multiMonthYear,dayGridMonth,timeGridWeek,timeGridDay'
                 },
                 plugins: [
                     bootstrap5Plugin,
                     dayGridPlugin,
                     timeGridPlugin,
+                    multiMonthPlugin,
                     interactionPlugin
                 ],
                 initialView: 'dayGridMonth',
@@ -53,10 +64,11 @@ export default {
         }
     },
     methods: {
-        getInitialEvents() {
+        getEvents() {
+            this.events = [];
             axios.get('/events') // TODO: install ziggy
                 .then((response) => {
-                    this.calendar.events = response.data;
+                    this.events = response.data;
                 })
                 .catch((error) => {
                     console.log(error);
@@ -73,8 +85,13 @@ export default {
             alert(JSON.stringify(clickInfo));
         }
     },
+    watch: {
+        events: function (newVal, oldVal) {
+            this.calendar.events = newVal;
+        }
+    },
     mounted() {
-        this.getInitialEvents();
+        this.getEvents();
     }
 }
 </script>
