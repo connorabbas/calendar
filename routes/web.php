@@ -20,3 +20,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/{id}', 'get')->name('single');
         });
 });
+
+// TODO: admin area
+// https://backpackforlaravel.com/docs/5.x/installation
+// https://stackoverflow.com/questions/58753777/how-to-integrate-a-vanilla-laravel-view-into-backpack
