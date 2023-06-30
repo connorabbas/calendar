@@ -5,15 +5,15 @@
 </template>
 
 <script>
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-icons/font/bootstrap-icons.css'; // needs additional webpack config!
+//import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import axios from 'axios';
-import FullCalendar from '@fullcalendar/vue3'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid'
-import interactionPlugin from '@fullcalendar/interaction'
-import bootstrap5Plugin from '@fullcalendar/bootstrap5'
+import FullCalendar from '@fullcalendar/vue3';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 
 /**
  * https://fullcalendar.io/docs/multimonth-grid
@@ -71,14 +71,10 @@ export default {
                 return;
             }
             alert(JSON.stringify(clickInfo));
-        },
-        eventDragStart(event, jsEvent, ui, view) {
-            return;
         }
     },
     mounted() {
         this.getInitialEvents();
-        this.calendar.eventStartEditable = false;
     }
 }
 </script>
