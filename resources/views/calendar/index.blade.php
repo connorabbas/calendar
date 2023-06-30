@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col">
             <div id="app">
-                <main-app></main-app>
+                <main-app :current-user-id="{{ auth()->user()->id }}"></main-app>
             </div>
         </div>
     </div>

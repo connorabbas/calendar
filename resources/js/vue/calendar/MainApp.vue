@@ -1,6 +1,6 @@
 <template>
     <div>
-        <FullCalendar :options="calendarOptions" />
+        <FullCalendar :options="calendar" />
     </div>
 </template>
 
@@ -23,10 +23,12 @@ export default {
     components: {
         FullCalendar
     },
+    props: {
+        currentUserId: Number
+    },
     data() {
         return {
-            eventsData: [],
-            calendarOptions: {
+            calendar: {
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
@@ -40,14 +42,13 @@ export default {
                 ],
                 initialView: 'dayGridMonth',
                 themeSystem: 'bootstrap5',
-                editable: false,
+                droppable: false,
+                editable: true,
                 selectable: true,
-                selectMirror: true,
-                dayMaxEvents: true,
                 weekends: true,
                 select: this.handleDateSelect,
                 eventClick: this.handleEventClick,
-                eventsSet: this.handleEvents
+                navLinks: true,
             }
         }
     },
@@ -55,22 +56,29 @@ export default {
         getInitialEvents() {
             axios.get('/events') // TODO: install ziggy
                 .then((response) => {
-                    this.calendarOptions.events = response.data;
+                    this.calendar.events = response.data;
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         },
         handleDateSelect(selectInfo) {
-            alert('date clicked');
+            alert('background clicked');
         },
         handleEventClick(clickInfo) {
-            console.log(clickInfo);
+            const eventUserId = clickInfo.event.extendedProps.user.id;
+            if (eventUserId != this.currentUserId) {
+                return;
+            }
             alert(JSON.stringify(clickInfo));
         },
+        eventDragStart(event, jsEvent, ui, view) {
+            return;
+        }
     },
     mounted() {
         this.getInitialEvents();
+        this.calendar.eventStartEditable = false;
     }
 }
 </script>

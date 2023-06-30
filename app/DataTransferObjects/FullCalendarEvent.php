@@ -17,6 +17,8 @@ class FullCalendarEvent
         public readonly string $title,
         public readonly bool|null $allDay = false,
         public readonly bool|null $editable = true,
+        public readonly bool|null $startEditable = false,
+        public readonly bool|null $durationEditable = false,
         //public readonly string|null $display = null,
         //public readonly string|null $backgroundColor = null,
         //public readonly string|null $borderColor = null,

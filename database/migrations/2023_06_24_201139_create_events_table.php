@@ -12,8 +12,8 @@ return new class () extends Migration {
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('event_type_id');
+            $table->foreignId('user_id')->index();
+            $table->foreignId('event_type_id')->index();
             $table->datetime('start_time');
             $table->datetime('finish_time');
             $table->longText('comments')->nullable();
