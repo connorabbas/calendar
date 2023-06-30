@@ -11,7 +11,7 @@ class FullCalendarEvent
 {
     // TODO: figure out required properties
     public function __construct(
-        public readonly  int $id,
+        public readonly int $id,
         public readonly DateTime $start,
         public readonly DateTime $end,
         public readonly string $title,
