@@ -15,9 +15,10 @@ import multiMonthPlugin from '@fullcalendar/multimonth'
 import interactionPlugin from '@fullcalendar/interaction';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 
-defineProps({
+const props = defineProps({
     currentUserId: Number
 });
+
 const events = ref([]);
 const calendar = reactive({
     customButtons: {
@@ -66,7 +67,8 @@ function handleDateSelect(selectInfo) {
 }
 function handleEventClick(clickInfo) {
     const eventUserId = clickInfo.event.extendedProps.user.id;
-    if (eventUserId != currentUserId) {
+    if (eventUserId != props.currentUserId) {
+        console.log('not yours!');
         return;
     }
     alert(JSON.stringify(clickInfo));

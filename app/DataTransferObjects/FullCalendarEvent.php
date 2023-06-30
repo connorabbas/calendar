@@ -6,6 +6,7 @@ use DateTime;
 
 /**
  * https://fullcalendar.io/docs/event-object
+ * TODO: figure out other required properties
  */
 class FullCalendarEvent
 {
@@ -15,15 +16,13 @@ class FullCalendarEvent
         public readonly DateTime $start,
         public readonly DateTime $end,
         public readonly string $title,
-        public readonly bool|null $allDay = false,
-        public readonly bool|null $editable = true,
-        public readonly bool|null $startEditable = false,
-        public readonly bool|null $durationEditable = false,
-        //public readonly string|null $display = null,
+        public readonly bool $allDay = false,
+        public readonly bool $editable = true,
+        public readonly bool $startEditable = false,
+        public readonly bool $durationEditable = false,
         //public readonly string|null $backgroundColor = null,
         //public readonly string|null $borderColor = null,
-        //public readonly string|null $textColor = null,
-        public readonly array|null $extendedProps = null,
+        public readonly array $extendedProps = [],
     ) {
     }
 }
