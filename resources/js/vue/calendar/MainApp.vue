@@ -5,9 +5,7 @@
 </template>
 
 <script>
-//import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-
 import axios from 'axios';
 import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -16,10 +14,6 @@ import multiMonthPlugin from '@fullcalendar/multimonth'
 import interactionPlugin from '@fullcalendar/interaction';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 
-/**
- * https://fullcalendar.io/docs/multimonth-grid
- * https://fullcalendar.io/blog/2023/01/multimonth-and-more
- */
 export default {
     components: {
         FullCalendar
@@ -95,5 +89,3 @@ export default {
     }
 }
 </script>
-
-<style></style>
