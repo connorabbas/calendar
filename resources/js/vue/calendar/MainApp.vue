@@ -16,7 +16,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 
 const props = defineProps({
-    currentUserId: Number
+    currentUser: Object
 });
 
 const state = reactive({
@@ -69,11 +69,11 @@ function handleDateSelect(selectInfo) {
 }
 function handleEventClick(clickInfo) {
     const eventUserId = clickInfo.event.extendedProps.user.id;
-    if (eventUserId != props.currentUserId) {
+    if (eventUserId != props.currentUser.id) {
         console.log('not yours!');
         return;
     }
-    alert(JSON.stringify(clickInfo));
+    alert(JSON.stringify(clickInfo.event));
 }
 
 watch(() => state.events, (newEvents) => {
