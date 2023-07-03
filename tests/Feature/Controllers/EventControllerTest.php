@@ -28,8 +28,8 @@ class EventControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $eventType = EventType::factory()->create();
-        $start = Carbon::now()->toDateTimeString();
-        $finish = Carbon::now()->addHour()->toDateTimeString();
+        $start = Carbon::now();
+        $finish = Carbon::now()->addHour();
 
         $this->actingAs($user);
         $this->post(route('events.store'), [

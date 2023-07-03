@@ -24,7 +24,7 @@ class StoreEventRequest extends FormRequest
         return [
             'start_time' => ['required', 'date'],
             'finish_time' => ['required', 'date'],
-            'event_type_id' => ['required', 'numeric', 'exists:event_types'],
+            'event_type_id' => ['required', 'numeric', 'exists:event_types,id'],
             'comments' => ['nullable', 'string'],
         ];
     }
