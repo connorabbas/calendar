@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
             Route::get('/', 'search')->name('search');
             Route::get('/{id}', 'get')->name('single');
+            Route::post('/', 'store')->name('store');
         });
 });
 
