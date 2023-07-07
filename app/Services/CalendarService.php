@@ -4,6 +4,7 @@ namespace App\Services;
 
 use DateTime;
 use App\Models\Event;
+use Illuminate\Support\Facades\Log;
 use App\DataTransferObjects\FullCalendarEvent;
 use App\Transformers\FullCalendarEventTransformer;
 
@@ -34,12 +35,15 @@ class CalendarService
         int $userId,
         string|null $comments = null,
     ): FullCalendarEvent {
-        return FullCalendarEventTransformer::fromEvent(Event::create([
+        $event = Event::create([
             'start_time' => $startTime,
             'finish_time' => $finishTime,
             'event_type_id' => $eventTypeId,
             'user_id' => $userId,
             'comments' => $comments,
-        ]));
+        ]);
+        Log::info("New Event: $event->id created for User: $event->user_id");
+
+        return FullCalendarEventTransformer::fromEvent($event);
     }
 }

@@ -1,6 +1,13 @@
 <template>
     <div>
         <FullCalendar ref="fullCalendar" :options="calendarOptions" />
+        <bs-modal title="Add New Event" ref="createEventModal"
+            :classes="['modal-dialog-centered', 'modal-dialog-scrollable']">
+            <template #body>This should be in the body</template>
+            <!-- <template #footer>
+                <button class="btn btn-primary">Extra footer button</button>
+            </template> -->
+        </bs-modal>
     </div>
 </template>
 
@@ -14,11 +21,13 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import multiMonthPlugin from '@fullcalendar/multimonth'
 import interactionPlugin from '@fullcalendar/interaction';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
+import BsModal from '../components/BsModal.vue';
 
 const props = defineProps({
     currentUser: Object
 });
 
+var createEventModal = ref(null);
 const events = ref([]);
 const calendarOptions = ref({
     customButtons: {
@@ -63,7 +72,7 @@ function getEvents() {
         });
 }
 function handleDateSelect(selectInfo) {
-    alert('background clicked');
+    createEventModal.value.show();
 }
 function handleEventClick(clickInfo) {
     const eventUserId = clickInfo.event.extendedProps.user.id;
