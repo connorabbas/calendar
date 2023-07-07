@@ -31,6 +31,7 @@ const props = defineProps({
     },
     classes: Array
 });
+
 var modalRef = ref(null);
 var modalObj = null;
 

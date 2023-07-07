@@ -3,10 +3,16 @@
         <FullCalendar ref="fullCalendar" :options="calendarOptions" />
         <bs-modal title="Add New Event" ref="createEventModal"
             :classes="['modal-dialog-centered', 'modal-dialog-scrollable']">
-            <template #body>This should be in the body</template>
-            <!-- <template #footer>
+            <template #body>
+                {{ startDateInfo }}
+                <!-- <div class="mb-3">
+                    <label for="startDate" class="form-label">Start Time</label>
+                    <input type="date" class="form-control" id="startDate">
+                </div> -->
+            </template>
+            <template #footer>
                 <button class="btn btn-primary">Extra footer button</button>
-            </template> -->
+            </template>
         </bs-modal>
     </div>
 </template>
@@ -28,7 +34,7 @@ const props = defineProps({
 });
 
 var createEventModal = ref(null);
-const events = ref([]);
+
 const calendarOptions = ref({
     customButtons: {
         refreshButton: {
@@ -61,6 +67,7 @@ const calendarOptions = ref({
     navLinks: true,
 });
 
+const events = ref([]);
 function getEvents() {
     events.value = [];
     axios.get('/events') // TODO: install ziggy
@@ -71,9 +78,13 @@ function getEvents() {
             console.log(error);
         });
 }
+
+const startDateInfo = ref({});
 function handleDateSelect(selectInfo) {
+    startDateInfo.value = selectInfo;
     createEventModal.value.show();
 }
+
 function handleEventClick(clickInfo) {
     const eventUserId = clickInfo.event.extendedProps.user.id;
     if (eventUserId != props.currentUser.id) {
