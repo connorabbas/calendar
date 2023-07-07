@@ -1,6 +1,7 @@
 <template>
     <div>
         <FullCalendar ref="fullCalendar" :options="calendarOptions" />
+        <!-- TODO: make separate component with own logic -->
         <modal title="Add New Event" ref="createEventModal"
             :classes="['modal-dialog-centered', 'modal-dialog-scrollable']">
             <template #body>
@@ -29,12 +30,13 @@ import interactionPlugin from '@fullcalendar/interaction';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import Modal from '../components/Modal.vue';
 
+// Props
 const props = defineProps({
     currentUser: Object
 });
 
+// Misc State
 var createEventModal = ref(null);
-
 const calendarOptions = ref({
     customButtons: {
         refreshButton: {
@@ -67,6 +69,7 @@ const calendarOptions = ref({
     navLinks: true,
 });
 
+// Events
 const events = ref([]);
 function getEvents() {
     events.value = [];
@@ -79,13 +82,17 @@ function getEvents() {
         });
 }
 
+// Create new Event
 const startDateInfo = ref({});
 function handleDateSelect(selectInfo) {
     startDateInfo.value = selectInfo;
     createEventModal.value.show();
 }
 
+// Edit Event
+const editDateInfo = ref({});
 function handleEventClick(clickInfo) {
+    editDateInfo.value = clickInfo.event;
     const eventUserId = clickInfo.event.extendedProps.user.id;
     if (eventUserId != props.currentUser.id) {
         console.log('not yours!');
@@ -94,11 +101,17 @@ function handleEventClick(clickInfo) {
     alert(JSON.stringify(clickInfo.event));
 }
 
+// Lifecycle
 watch(events, (newEvents) => {
     calendarOptions.value.events = newEvents;
 });
-
 onMounted(() => {
     getEvents();
 });
 </script>
+
+<style>
+.fc-daygrid-event-harness:hover {
+    cursor: pointer;
+}
+</style>
