@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\CalendarService;
 use Illuminate\Http\JsonResponse;
-use App\Http\Requests\StoreEventRequest;
+use App\Http\Requests\FullCalendarEventRequest;
 
 class EventController extends Controller
 {
@@ -28,13 +28,13 @@ class EventController extends Controller
         return response()->json($event);
     }
 
-    public function store(StoreEventRequest $request): JsonResponse
+    public function store(FullCalendarEventRequest $request): JsonResponse
     {
         $event = $this->calendarService->createEvent(
             $request->start_time,
             $request->finish_time,
             $request->event_type_id,
-            $request->user()->id,
+            auth()->user()->id,
             $request->comments,
         );
 

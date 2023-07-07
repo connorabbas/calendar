@@ -8,9 +8,8 @@ use App\Http\Controllers\HomeController;
 
 Auth::routes();
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-
 Route::middleware('auth')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
     Route::controller(EventController::class)
         ->prefix('/events')

@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
+use DateTime;
 use App\Models\Event;
 use App\DataTransferObjects\FullCalendarEvent;
 use App\Transformers\FullCalendarEventTransformer;
-use DateTime;
 
 class CalendarService
 {
