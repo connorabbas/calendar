@@ -10,7 +10,6 @@ use DateTime;
  */
 class FullCalendarEvent
 {
-    // TODO: figure out required properties
     public function __construct(
         public readonly int $id,
         public readonly DateTime $start,
@@ -23,6 +22,5 @@ class FullCalendarEvent
         //public readonly string|null $backgroundColor = null,
         //public readonly string|null $borderColor = null,
         public readonly array $extendedProps = [],
-    ) {
-    }
+    ) {}
 }

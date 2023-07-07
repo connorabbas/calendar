@@ -1,12 +1,12 @@
 <template>
     <div>
-        <FullCalendar ref="fullCalendar" :options="state.calendarOptions" />
+        <FullCalendar ref="fullCalendar" :options="calendarOptions" />
     </div>
 </template>
 
 <script setup>
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { reactive, watch, onMounted } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import axios from 'axios';
 import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -19,46 +19,44 @@ const props = defineProps({
     currentUser: Object
 });
 
-const state = reactive({
-    events: [],
-    calendarOptions: {
-        customButtons: {
-            refreshButton: {
-                text: 'Refresh',
-                click: () => {
-                    getEvents()
-                }
+const events = ref([]);
+const calendarOptions = ref({
+    customButtons: {
+        refreshButton: {
+            text: 'Refresh',
+            click: () => {
+                getEvents()
             }
-        },
-        headerToolbar: {
-            left: 'prev,next today refreshButton',
-            center: 'title',
-            right: 'multiMonthYear,dayGridMonth,timeGridWeek,timeGridDay'
-        },
-        plugins: [
-            bootstrap5Plugin,
-            dayGridPlugin,
-            timeGridPlugin,
-            multiMonthPlugin,
-            interactionPlugin
-        ],
-        initialView: 'dayGridMonth',
-        themeSystem: 'bootstrap5',
-        droppable: false,
-        editable: true,
-        selectable: true,
-        weekends: true,
-        select: handleDateSelect,
-        eventClick: handleEventClick,
-        navLinks: true,
-    }
+        }
+    },
+    headerToolbar: {
+        left: 'prev,next today refreshButton',
+        center: 'title',
+        right: 'multiMonthYear,dayGridMonth,timeGridWeek,timeGridDay'
+    },
+    plugins: [
+        bootstrap5Plugin,
+        dayGridPlugin,
+        timeGridPlugin,
+        multiMonthPlugin,
+        interactionPlugin
+    ],
+    initialView: 'dayGridMonth',
+    themeSystem: 'bootstrap5',
+    droppable: false,
+    editable: true,
+    selectable: true,
+    weekends: true,
+    select: handleDateSelect,
+    eventClick: handleEventClick,
+    navLinks: true,
 });
 
 function getEvents() {
-    state.events = [];
+    events.value = [];
     axios.get('/events') // TODO: install ziggy
         .then((response) => {
-            state.events = response.data;
+            events.value = response.data;
         })
         .catch((error) => {
             console.log(error);
@@ -76,8 +74,8 @@ function handleEventClick(clickInfo) {
     alert(JSON.stringify(clickInfo.event));
 }
 
-watch(() => state.events, (newEvents) => {
-    state.calendarOptions.events = newEvents;
+watch(events, (newEvents) => {
+    calendarOptions.value.events = newEvents;
 });
 
 onMounted(() => {

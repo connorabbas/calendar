@@ -24,7 +24,6 @@ class CalendarService
     public function getFullCalendarEvent($id): FullCalendarEvent
     {
         $event = Event::with(['type', 'user'])->findOrFail($id);
-
         return FullCalendarEventTransformer::fromEvent($event);
     }
 
@@ -34,13 +33,13 @@ class CalendarService
         int $eventTypeId,
         int $userId,
         string|null $comments = null,
-    ): Event {
-        return Event::create([
+    ): FullCalendarEvent {
+        return FullCalendarEventTransformer::fromEvent(Event::create([
             'start_time' => $startTime,
             'finish_time' => $finishTime,
             'event_type_id' => $eventTypeId,
             'user_id' => $userId,
             'comments' => $comments,
-        ]);
+        ]));
     }
 }

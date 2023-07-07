@@ -4,11 +4,11 @@ namespace Tests\Feature\Controllers;
 
 use Tests\TestCase;
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CalendarControllerTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     public function test_index_returns_200_when_logged_in(): void
     {

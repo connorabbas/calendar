@@ -6,11 +6,11 @@ use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\EventType;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class EventControllerTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     public function test_search_returns_302_when_logged_out(): void
     {
@@ -22,6 +22,11 @@ class EventControllerTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
         $this->get(route('events.search'))->assertStatus(200);
+    }
+
+    public function test_store_returns_302_when_logged_out(): void
+    {
+        $this->post(route('events.store'))->assertStatus(302);
     }
 
     public function test_store_returns_200_when_logged_in(): void

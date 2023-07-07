@@ -2,8 +2,8 @@
 
 namespace App\Transformers;
 
-use App\DataTransferObjects\FullCalendarEvent;
 use App\Models\Event;
+use App\DataTransferObjects\FullCalendarEvent;
 
 class FullCalendarEventTransformer
 {
@@ -15,6 +15,7 @@ class FullCalendarEventTransformer
             end: $event->finish_time,
             title: $event->user->name . ' - ' . $event->type->name,
             extendedProps: [
+                'comments' => $event->comments,
                 'user' => $event->user,
                 'event_type' => $event->type,
             ],
