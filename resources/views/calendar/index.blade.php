@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col">
             <div id="app">
-                <main-app :current-user="{{ json_encode(auth()->user()) }}"></main-app>
+                <calendar-app :current-user="{{ json_encode(auth()->user()) }}"></calendar-app>
             </div>
         </div>
     </div>

@@ -1,9 +1,9 @@
 import { createApp } from 'vue';
-import MainApp from './MainApp.vue';
+import App from './App.vue';
 
 const app = createApp({
     components: {
-        'main-app': MainApp
+        'calendar-app': App
     },
 });
 app.mount('#app');

@@ -1,7 +1,7 @@
 <template>
     <div>
         <FullCalendar ref="fullCalendar" :options="calendarOptions" />
-        <bs-modal title="Add New Event" ref="createEventModal"
+        <modal title="Add New Event" ref="createEventModal"
             :classes="['modal-dialog-centered', 'modal-dialog-scrollable']">
             <template #body>
                 {{ startDateInfo }}
@@ -13,7 +13,7 @@
             <template #footer>
                 <button class="btn btn-primary">Extra footer button</button>
             </template>
-        </bs-modal>
+        </modal>
     </div>
 </template>
 
@@ -27,7 +27,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import multiMonthPlugin from '@fullcalendar/multimonth'
 import interactionPlugin from '@fullcalendar/interaction';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
-import BsModal from '../components/BsModal.vue';
+import Modal from '../components/Modal.vue';
 
 const props = defineProps({
     currentUser: Object
