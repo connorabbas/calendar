@@ -70,7 +70,7 @@ function getEvents() {
 }
 
 // Create new Event proxy
-const createEventModal = ref(null);
+const createEventModal = ref(null) // template ref;
 function handleDateSelect(selectInfo) {
     createEventModal.value.showCreateEventModal(selectInfo);
 }

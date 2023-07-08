@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, reactive } from "vue";
+import { onMounted, ref } from "vue";
 import { Modal } from "bootstrap";
 
 const props = defineProps({
@@ -43,7 +43,7 @@ const emit = defineEmits(['shown', 'hidden']);
 const shown = ref(false);
 const hidden = ref(true);
 
-var modalRef = ref(null);
+var modalRef = ref(null) // template ref;
 var modalObj = null;
 
 function show() {

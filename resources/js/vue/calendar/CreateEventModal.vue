@@ -1,7 +1,7 @@
 <template>
     <div>
-        <modal title="Add New Event" ref="createEventModal" :classes="['modal-dialog-centered']" :footer-close-btn="false"
-            @hidden="resetDates">
+        <modal title="Schedule New Event" ref="createEventModal" :classes="['modal-dialog-centered']"
+            :footer-close-btn="false" @hidden="resetDates">
             <template #body>
                 <div>
                     <div class="mb-3">
@@ -14,11 +14,11 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Start</label>
-                        <VueDatePicker v-model="startDate" :max-date="finishDate" :is-24="false" />
+                        <VueDatePicker v-model="startDate" :max-date="finishDate" :is-24="false" minutes-increment="15" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Finish</label>
-                        <VueDatePicker v-model="finishDate" :min-date="startDate" :is-24="false" />
+                        <VueDatePicker v-model="finishDate" :min-date="startDate" :is-24="false" minutes-increment="15" />
                     </div>
                     <div class="mb-0">
                         <label class="form-label">Comments</label>
@@ -47,12 +47,12 @@ const props = defineProps({
     eventTypes: Array,
 });
 
-const eventType = ref();
+const eventType = ref(1);
 const startDate = ref(new Date());
 const finishDate = ref('');
 const comments = ref('');
 
-var createEventModal = ref(null);
+var createEventModal = ref(null); // template ref
 function showCreateEventModal(dateDetails) {
     var date = new Date(dateDetails.start);
     date.setHours(8);

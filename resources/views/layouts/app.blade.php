@@ -13,7 +13,7 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-    <!-- Scripts -->
+    <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body class="bg-light">
@@ -75,7 +75,9 @@
             @yield('content')
         </main>
     </div>
-    <script src="{{ asset('js/app.js') }}"></script>
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
     @stack('scripts')
 </body>
 </html>
