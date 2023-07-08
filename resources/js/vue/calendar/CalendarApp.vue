@@ -1,7 +1,7 @@
 <template>
     <div>
         <FullCalendar ref="fullCalendar" :options="calendarOptions" />
-        <CreateEventModal ref="createEventModal" />
+        <CreateEventModal ref="createEventModal" :event-types="eventTypes" />
     </div>
 </template>
 
@@ -19,7 +19,8 @@ import CreateEventModal from './CreateEventModal.vue';
 
 // Props
 const props = defineProps({
-    currentUser: Object
+    currentUser: Object,
+    eventTypes: Array,
 });
 
 // FullCalendar Options

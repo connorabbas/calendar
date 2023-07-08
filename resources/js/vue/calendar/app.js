@@ -1,11 +1,11 @@
 import { createApp } from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
-import App from './App.vue';
+import CalendarApp from './CalendarApp.vue';
 
 const app = createApp({
     components: {
-        'calendar-app': App,
+        'calendar-app': CalendarApp,
         'VueDatePicker': VueDatePicker,
     },
 });
