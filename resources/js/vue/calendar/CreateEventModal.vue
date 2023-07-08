@@ -61,7 +61,19 @@ function showCreateEventModal(dateDetails) {
 }
 
 function submitCreateEvent() {
-    console.log('submit');
+    const payload = {
+        start_time: startDate.value,
+        finish_time: finishDate.value,
+        event_type_id: eventType.value,
+        comments: comments.value,
+    };
+    axios.post('/events', payload)
+        .then((response) => {
+            createEventModal.value.hide();
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
 function resetDates() {

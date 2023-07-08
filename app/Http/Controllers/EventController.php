@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Services\CalendarService;
 use Illuminate\Http\JsonResponse;
@@ -31,8 +32,8 @@ class EventController extends Controller
     public function store(FullCalendarEventRequest $request): JsonResponse
     {
         $event = $this->calendarService->createEvent(
-            $request->start_time,
-            $request->finish_time,
+            Carbon::parse($request->start_time),
+            Carbon::parse($request->finish_time),
             $request->event_type_id,
             auth()->user()->id,
             $request->comments,
