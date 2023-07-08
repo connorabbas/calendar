@@ -1,20 +1,7 @@
 <template>
     <div>
         <FullCalendar ref="fullCalendar" :options="calendarOptions" />
-        <!-- TODO: make separate component with own logic -->
-        <modal title="Add New Event" ref="createEventModal"
-            :classes="['modal-dialog-centered', 'modal-dialog-scrollable']">
-            <template #body>
-                {{ startDateInfo }}
-                <!-- <div class="mb-3">
-                    <label for="startDate" class="form-label">Start Time</label>
-                    <input type="date" class="form-control" id="startDate">
-                </div> -->
-            </template>
-            <template #footer>
-                <button class="btn btn-primary">Extra footer button</button>
-            </template>
-        </modal>
+        <CreateEventModal ref="createEventModal" />
     </div>
 </template>
 
@@ -28,15 +15,14 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import multiMonthPlugin from '@fullcalendar/multimonth'
 import interactionPlugin from '@fullcalendar/interaction';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
-import Modal from '../components/Modal.vue';
+import CreateEventModal from './CreateEventModal.vue';
 
 // Props
 const props = defineProps({
     currentUser: Object
 });
 
-// Misc State
-var createEventModal = ref(null);
+// FullCalendar Options
 const calendarOptions = ref({
     customButtons: {
         refreshButton: {
@@ -82,17 +68,14 @@ function getEvents() {
         });
 }
 
-// Create new Event
-const startDateInfo = ref({});
+// Create new Event proxy
+const createEventModal = ref(null);
 function handleDateSelect(selectInfo) {
-    startDateInfo.value = selectInfo;
-    createEventModal.value.show();
+    createEventModal.value.createEvent(selectInfo);
 }
 
-// Edit Event
-const editDateInfo = ref({});
+// Edit Event proxy
 function handleEventClick(clickInfo) {
-    editDateInfo.value = clickInfo.event;
     const eventUserId = clickInfo.event.extendedProps.user.id;
     if (eventUserId != props.currentUser.id) {
         console.log('not yours!');

@@ -1,18 +1,18 @@
 <template>
     <div>
-        <div class="modal fade" tabindex="-1" ref="modalRef">
+        <div class="modal fade" data-bs-backdrop="static" tabindex="-1" ref="modalRef">
             <div class="modal-dialog" :class="classes">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">{{ title }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" aria-label="Close" @click="hide()"></button>
                     </div>
                     <div class="modal-body">
                         <slot name="body" />
                     </div>
                     <div class="modal-footer">
                         <slot name="footer" />
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" @click="hide()">Close</button>
                     </div>
                 </div>
             </div>
@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, reactive } from "vue";
 import { Modal } from "bootstrap";
 
 const props = defineProps({
@@ -32,19 +32,32 @@ const props = defineProps({
     classes: Array
 });
 
+const emit = defineEmits(['shown', 'hidden']);
+
+const shown = ref(false);
+const hidden = ref(true);
+
 var modalRef = ref(null);
 var modalObj = null;
 
-function showModal() {
+function show() {
+    emit('shown');
+    shown.value = true;
+    hidden.value = false;
     modalObj.show();
 }
-function hideModal() {
+function hide() {
+    emit('hidden');
+    shown.value = false;
+    hidden.value = true;
     modalObj.hide();
 }
 
 defineExpose({
-    show: showModal,
-    hide: hideModal,
+    shown,
+    hidden,
+    show,
+    hide,
 });
 
 onMounted(() => {
