@@ -6,11 +6,11 @@
                 <div>
                     <div class="mb-3">
                         <label class="form-label">Start</label>
-                        <VueDatePicker v-model="startDate" :is-24="false" />
+                        <VueDatePicker v-model="startDate" :max-date="finishDate" :is-24="false" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Finish</label>
-                        <VueDatePicker v-model="finishDate" :is-24="false" />
+                        <VueDatePicker v-model="finishDate" :min-date="startDate" :is-24="false" />
                     </div>
                 </div>
             </template>
@@ -29,11 +29,10 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
 const startDate = ref(new Date());
-const finishDate = ref(new Date());
+const finishDate = ref();
 
 var createEventModal = ref(null);
 function showCreateEventModal(dateDetails) {
-    // TODO: validate date isn't older than current
     var date = new Date(dateDetails.start);
     date.setHours(8);
     startDate.value = date;

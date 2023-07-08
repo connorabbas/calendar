@@ -44,4 +44,23 @@ class EventControllerTest extends TestCase
             'comments' => 'testing'
         ])->assertStatus(200);
     }
+
+    public function test_store_throws_error_when_start_is_after_finish(): void
+    {
+        $user = User::factory()->create();
+        $eventType = EventType::factory()->create();
+        $start = Carbon::now()->addHour();
+        $finish = Carbon::now();
+
+        $this->actingAs($user);
+        $this->post(route('events.store'), [
+            'start_time' => $start,
+            'finish_time' => $finish,
+            'event_type_id' => $eventType->id,
+            'comments' => 'testing'
+        ])
+            ->assertSessionHasErrors([
+                'finish_time'
+            ]);
+    }
 }
