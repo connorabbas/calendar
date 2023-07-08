@@ -24,7 +24,6 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import { Modal } from "bootstrap";
 
 const props = defineProps({
     title: {
@@ -67,6 +66,6 @@ defineExpose({
 });
 
 onMounted(() => {
-    modalObj = new Modal(modalRef.value);
+    modalObj = new bootstrap.Modal(modalRef.value);
 });
 </script>

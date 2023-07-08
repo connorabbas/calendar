@@ -9,4 +9,5 @@ const app = createApp({
         'VueDatePicker': VueDatePicker,
     },
 });
+app.config.globalProperties.bootstrap = bootstrap;
 app.mount('#app');
