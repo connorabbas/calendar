@@ -24,16 +24,16 @@ const props = defineProps({
 
 // FullCalendar Options
 const calendarOptions = ref({
-    customButtons: {
+    /* customButtons: {
         refreshButton: {
             text: 'Refresh',
             click: () => {
                 getEvents()
             }
         }
-    },
+    }, */
     headerToolbar: {
-        left: 'prev,next today refreshButton',
+        left: 'prev,next today',
         center: 'title',
         right: 'multiMonthYear,dayGridMonth,timeGridWeek,timeGridDay'
     },
@@ -71,7 +71,7 @@ function getEvents() {
 // Create new Event proxy
 const createEventModal = ref(null);
 function handleDateSelect(selectInfo) {
-    createEventModal.value.createEvent(selectInfo);
+    createEventModal.value.showCreateEventModal(selectInfo);
 }
 
 // Edit Event proxy

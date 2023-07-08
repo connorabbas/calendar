@@ -12,7 +12,9 @@
                     </div>
                     <div class="modal-footer">
                         <slot name="footer" />
-                        <button type="button" class="btn btn-secondary" @click="hide()">Close</button>
+                        <button v-if="footerCloseBtn" type="button" class="btn btn-secondary" @click="hide()">
+                            Close
+                        </button>
                     </div>
                 </div>
             </div>
@@ -28,6 +30,10 @@ const props = defineProps({
     title: {
         type: String,
         default: "<<Title goes here>>",
+    },
+    footerCloseBtn: {
+        type: Boolean,
+        default: true,
     },
     classes: Array
 });

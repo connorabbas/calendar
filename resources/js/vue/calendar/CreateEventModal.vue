@@ -1,35 +1,47 @@
 <template>
     <div>
-        <modal title="Add New Event" ref="createEventModal" :classes="['modal-dialog-centered']" @hidden="resetStartDate">
+        <modal title="Add New Event" ref="createEventModal" :classes="['modal-dialog-centered']" :footer-close-btn="false" 
+            @hidden="resetStartDate">
             <template #body>
                 <div>
                     <div class="mb-3">
+                        <label class="form-label">Start</label>
                         <VueDatePicker v-model="startDate" :is-24="false" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Finish</label>
+                        <VueDatePicker v-model="finishDate" :is-24="false" />
                     </div>
                 </div>
             </template>
             <template #footer>
-                <button class="btn btn-primary">Submit</button>
+                <button class="btn btn-primary" @click="submitCreateEvent()">Submit</button>
             </template>
         </modal>
     </div>
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from 'vue';
+import { ref } from 'vue';
 import axios from 'axios';
-import Modal from '../components/Modal.vue';
+import Modal from '../components/bootstrap/Modal.vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
-var createEventModal = ref(null);
 const startDate = ref(new Date());
-function createEvent(dateDetails) {
-    console.log(dateDetails);
+const finishDate = ref(new Date());
+
+var createEventModal = ref(null);
+function showCreateEventModal(dateDetails) {
+    // TODO: validate date isn't older than current
     var date = new Date(dateDetails.start);
     date.setHours(8);
     startDate.value = date;
     createEventModal.value.show();
+}
+
+function submitCreateEvent() {
+    console.log('submit');
 }
 
 function resetStartDate() {
@@ -37,6 +49,6 @@ function resetStartDate() {
 }
 
 defineExpose({
-    createEvent: createEvent,
+    showCreateEventModal
 });
 </script>
