@@ -57,7 +57,6 @@ import axios from 'axios';
 import Modal from '../components/bootstrap/Modal.vue';
 import MiniToast from '../components/bootstrap/MiniToast.vue';
 import VueDatePicker from '@vuepic/vue-datepicker'; // https://vue3datepicker.com/
-import '@vuepic/vue-datepicker/dist/main.css'
 
 // TODO: validation https://vuelidate-next.netlify.app/#alternative-syntax-composition-api
 

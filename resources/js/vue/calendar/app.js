@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
+import '@vuepic/vue-datepicker/dist/main.css';
 import CalendarApp from './CalendarApp.vue';
 
 const app = createApp({
