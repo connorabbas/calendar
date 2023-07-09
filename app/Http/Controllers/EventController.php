@@ -19,13 +19,14 @@ class EventController extends Controller
 
     public function search(Request $request): JsonResponse
     {
-        $events = $this->calendarService->getFullCalendarEvents();
+        $events = $this->calendarService->getEvents();
         return response()->json($events);
     }
 
-    public function get($id): JsonResponse
+    public function get(int $id): JsonResponse
     {
-        $event = $this->calendarService->getFullCalendarEvent($id);
+        // TODO: EventPolicy
+        $event = $this->calendarService->getEvent($id);
         return response()->json($event);
     }
 
@@ -45,7 +46,7 @@ class EventController extends Controller
         ]);
     }
 
-    public function update($id, FullCalendarEventRequest $request): JsonResponse
+    public function update(int $id, FullCalendarEventRequest $request): JsonResponse
     {
         $event = $this->calendarService->updateEvent(
             $id,

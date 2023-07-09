@@ -10,7 +10,7 @@ use App\Transformers\FullCalendarEventTransformer;
 
 class CalendarService
 {
-    public function getFullCalendarEvents(): array
+    public function getEvents(): array
     {
         $calendarEvents = [];
         $events = Event::all();
@@ -22,7 +22,7 @@ class CalendarService
         return $calendarEvents;
     }
 
-    public function getFullCalendarEvent($id): FullCalendarEvent
+    public function getEvent($id): FullCalendarEvent
     {
         $event = Event::with(['type', 'user'])->findOrFail($id);
         return FullCalendarEventTransformer::fromEvent($event);

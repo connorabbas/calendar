@@ -79,12 +79,6 @@ function showCreateEventModal(dateDetails) {
         startTime.setHours(8); // set to 8am if clicking from month/year view
     }
     startDate.value = startTime;
-
-    /* var finishTime = startTime;
-    var startDateHours = finishTime.getHours();
-    finishTime.setHours(startDateHours + 1);
-    finishDate.value = finishTime; */
-
     createEventModal.value.show();
 }
 

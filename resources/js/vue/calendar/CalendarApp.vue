@@ -108,4 +108,7 @@ onMounted(() => {
 .fc-daygrid-event-harness:hover {
     cursor: pointer;
 }
+.dp__action_button {
+    line-height: 1rem;
+}
 </style>
