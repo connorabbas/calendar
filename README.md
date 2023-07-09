@@ -25,7 +25,7 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-Separate DB/connection for running automated tests.
+Separate DB connection for running automated tests:
 ```env
 DB_TEST_CONNECTION=testing
 DB_TEST_HOST=127.0.0.1
@@ -35,13 +35,13 @@ DB_TEST_USERNAME=root
 DB_TEST_PASSWORD=
 ```
 
-Run migrations 
+Run migrations:
 ```
 php artisan migrate
 php artisan migrate --database=testing
 ```
 
-Seed DB with test data (optional)
+Seed DB with test data (optional):
 ```
 php artisan db:seed --class=EventSeeder
 ```
