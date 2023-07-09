@@ -70,6 +70,7 @@ class EventControllerTest extends TestCase
         $this->patch(route('events.update', ['id' => 123]))->assertStatus(302);
     }
 
+    // TODO: assert different data
     public function test_update_returns_200_when_logged_in(): void
     {
         $user = User::factory()->create();

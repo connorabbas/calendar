@@ -55,11 +55,12 @@ class CalendarService
         string|null $comments = null,
     ): FullCalendarEvent {
         $event = Event::findOrFail($eventId);
-        $event->start_time = $startTime;
-        $event->finish_time = $finishTime;
-        $event->event_type_id = $eventTypeId;
-        $event->comments = $comments;
-        $event->save();
+        $event->update([
+            'start_time' => $startTime,
+            'finish_time' => $finishTime,
+            'event_type_id' => $eventTypeId,
+            'comments' => $comments,
+        ]);
         Log::info("Event: $event->id updated for User: $event->user_id");
 
         return FullCalendarEventTransformer::fromEvent($event);
