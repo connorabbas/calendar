@@ -1,7 +1,7 @@
 <template>
     <div>
         <FullCalendar ref="fullCalendar" :options="calendarOptions" />
-        <CreateEventModal ref="createEventModal" :event-types="eventTypes" />
+        <CreateEventModal ref="createEventModal" :event-types="eventTypes" @event-created="getEvents()" />
     </div>
 </template>
 
@@ -25,14 +25,6 @@ const props = defineProps({
 
 // FullCalendar Options
 const calendarOptions = ref({
-    /* customButtons: {
-        refreshButton: {
-            text: 'Refresh',
-            click: () => {
-                getEvents()
-            }
-        }
-    }, */
     headerToolbar: {
         left: 'prev,next today',
         center: 'title',
@@ -59,7 +51,6 @@ const calendarOptions = ref({
 // Events
 const events = ref([]);
 function getEvents() {
-    events.value = [];
     axios.get('/events') // TODO: install ziggy
         .then((response) => {
             events.value = response.data;

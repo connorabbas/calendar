@@ -43,5 +43,5 @@ php artisan migrate --database=testing
 
 Seed DB with test data (optional)
 ```
-php artisan db:seed --EventSeeder
+php artisan db:seed --class=EventSeeder
 ```
