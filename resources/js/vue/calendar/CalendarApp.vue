@@ -1,7 +1,13 @@
 <template>
     <div>
         <FullCalendar ref="fullCalendar" :options="calendarOptions" />
-        <CreateEventModal ref="createEventModal" :event-types="eventTypes" @event-created="getEvents()" />
+        <CreateEventModal ref="createEventModal" :event-types="eventTypes" @event-created="(e) => eventCreated(e)" />
+        <mini-toast ref="successToast" classes="shadow text-bg-success border-0" position-classes="bottom-0 end-0 p-5"
+            close-btn-classes="btn-close-white">
+            <template #body>
+                {{ successMessage }}
+            </template>
+        </mini-toast>
     </div>
 </template>
 
@@ -15,6 +21,7 @@ import multiMonthPlugin from '@fullcalendar/multimonth'
 import interactionPlugin from '@fullcalendar/interaction';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import CreateEventModal from './CreateEventModal.vue';
+import MiniToast from '../components/bootstrap/MiniToast.vue';
 
 // Props
 const props = defineProps({
@@ -47,6 +54,14 @@ const calendarOptions = ref({
     navLinks: true,
 });
 
+// Success Toast
+var successToast = ref(null); // template ref
+const successMessage = ref('');
+function showSuccessToast(message) {
+    successMessage.value = message;
+    successToast.value.show();
+}
+
 // Events
 const events = ref([]);
 function getEvents() {
@@ -59,13 +74,18 @@ function getEvents() {
         });
 }
 
-// Create new Event proxy
+// Create new Event
 const createEventModal = ref(null) // template ref;
 function handleDateSelect(selectInfo) {
+    // proxy the the child component method
     createEventModal.value.showCreateEventModal(selectInfo);
 }
+function eventCreated(message) {
+    getEvents();
+    showSuccessToast(message);
+}
 
-// TODO: Edit Event proxy
+// TODO: Edit Event
 function handleEventClick(clickInfo) {
     const eventUserId = clickInfo.event.extendedProps.user.id;
     if (eventUserId != props.currentUser.id) {

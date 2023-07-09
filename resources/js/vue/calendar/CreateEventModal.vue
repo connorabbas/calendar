@@ -41,13 +41,6 @@
                 </button>
             </template>
         </modal>
-        <!-- TODO: move to outer component and emit the messages -->
-        <mini-toast ref="successToast" classes="shadow text-bg-success border-0" position-classes="bottom-0 end-0 p-5"
-            close-btn-classes="btn-close-white">
-            <template #body>
-                {{ responseMessage }}
-            </template>
-        </mini-toast>
     </div>
 </template>
 
@@ -55,7 +48,6 @@
 import { ref, watch } from 'vue';
 import axios from 'axios';
 import Modal from '../components/bootstrap/Modal.vue';
-import MiniToast from '../components/bootstrap/MiniToast.vue';
 import VueDatePicker from '@vuepic/vue-datepicker'; // https://vue3datepicker.com/
 
 // TODO: validation https://vuelidate-next.netlify.app/#alternative-syntax-composition-api
@@ -66,7 +58,6 @@ const props = defineProps({
 
 const emit = defineEmits(['event-created']);
 
-const responseMessage = ref('');
 const submitting = ref(false);
 const submitBtnDisabled = ref(false);
 const eventType = ref(1);
@@ -76,8 +67,6 @@ const comments = ref('');
 const totalHours = ref(0);
 
 var createEventModal = ref(null); // template ref
-var successToast = ref(null); // template ref
-
 function showCreateEventModal(dateDetails) {
     var startTime = new Date(dateDetails.start);
     var currentDate = new Date();
@@ -110,11 +99,10 @@ function submitCreateEvent() {
     axios.post('/events', payload)
         .then((response) => {
             createEventModal.value.hide();
-            emit('event-created');
-            responseMessage.value = response.data.message
+            emit('event-created', response.data.message);
             var newEvent = response.data.event;
             console.log(newEvent);
-            successToast.value.show();
+            // emit success toast show
         })
         .catch((error) => {
             console.log(error);
