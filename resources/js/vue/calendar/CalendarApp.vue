@@ -6,7 +6,6 @@
 </template>
 
 <script setup>
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import { ref, watch, onMounted } from 'vue';
 import axios from 'axios';
 import FullCalendar from '@fullcalendar/vue3';
@@ -66,7 +65,7 @@ function handleDateSelect(selectInfo) {
     createEventModal.value.showCreateEventModal(selectInfo);
 }
 
-// Edit Event proxy
+// TODO: Edit Event proxy
 function handleEventClick(clickInfo) {
     const eventUserId = clickInfo.event.extendedProps.user.id;
     if (eventUserId != props.currentUser.id) {

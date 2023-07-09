@@ -1,7 +1,7 @@
 <template>
     <div>
-        <modal title="Schedule New Event" ref="createEventModal" :classes="['modal-dialog-centered']"
-            :footer-close-btn="false" @hidden="resetDates">
+        <modal title="Schedule New Event" ref="createEventModal" classes="modal-dialog-centered"
+            :footer-close-btn="false" @hidden="resetInputs">
             <template #body>
                 <div>
                     <div class="mb-3">
@@ -41,6 +41,13 @@
                 </button>
             </template>
         </modal>
+        <!-- TODO: move to outer component and emit the messages -->
+        <mini-toast ref="successToast" classes="shadow text-bg-success border-0" position-classes="bottom-0 end-0 p-5"
+            close-btn-classes="btn-close-white">
+            <template #body>
+                {{ responseMessage }}
+            </template>
+        </mini-toast>
     </div>
 </template>
 
@@ -48,6 +55,7 @@
 import { ref, watch } from 'vue';
 import axios from 'axios';
 import Modal from '../components/bootstrap/Modal.vue';
+import MiniToast from '../components/bootstrap/MiniToast.vue';
 import VueDatePicker from '@vuepic/vue-datepicker'; // https://vue3datepicker.com/
 import '@vuepic/vue-datepicker/dist/main.css'
 
@@ -59,19 +67,23 @@ const props = defineProps({
 
 const emit = defineEmits(['event-created']);
 
+const responseMessage = ref('');
 const submitting = ref(false);
 const submitBtnDisabled = ref(false);
 const eventType = ref(1);
 const startDate = ref(new Date());
 const finishDate = ref('');
 const comments = ref('');
+const totalHours = ref(0);
 
 var createEventModal = ref(null); // template ref
+var successToast = ref(null); // template ref
+
 function showCreateEventModal(dateDetails) {
     var startTime = new Date(dateDetails.start);
-    var currentTime = new Date();
-    currentTime.setHours(0,0,0,0);
-    if (startTime < currentTime) {
+    var currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    if (startTime < currentDate) {
         alert('Invalid date, please select a current or future date instead.');
         return;
     }
@@ -100,6 +112,10 @@ function submitCreateEvent() {
         .then((response) => {
             createEventModal.value.hide();
             emit('event-created');
+            responseMessage.value = response.data.message
+            var newEvent = response.data.event;
+            console.log(newEvent);
+            successToast.value.show();
         })
         .catch((error) => {
             console.log(error);
@@ -109,9 +125,10 @@ function submitCreateEvent() {
         });
 }
 
-function resetDates() {
+function resetInputs() {
     startDate.value = '';
     finishDate.value = '';
+    comments.value = '';
 }
 
 watch(submitting, (newVal, oldVal) => {
@@ -121,6 +138,12 @@ watch(submitting, (newVal, oldVal) => {
         submitBtnDisabled.value = false;
     }
 });
+/* watch(startDate, (newVal, oldVal) => {
+    totalHours.value = Math.abs(finishDate.value - newVal) / 36e5;
+});
+watch(finishDate, (newVal, oldVal) => {
+    totalHours.value = Math.abs(newVal - startDate.value) / 36e5;
+}); */
 
 defineExpose({
     showCreateEventModal

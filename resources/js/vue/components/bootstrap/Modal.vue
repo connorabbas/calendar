@@ -1,21 +1,19 @@
 <template>
-    <div>
-        <div class="modal fade" data-bs-backdrop="static" tabindex="-1" ref="modalRef">
-            <div class="modal-dialog" :class="classes">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{{ title }}</h5>
-                        <button type="button" class="btn-close" aria-label="Close" @click="hide()"></button>
-                    </div>
-                    <div class="modal-body">
-                        <slot name="body" />
-                    </div>
-                    <div class="modal-footer">
-                        <slot name="footer" />
-                        <button v-if="footerCloseBtn" type="button" class="btn btn-secondary" @click="hide()">
-                            Close
-                        </button>
-                    </div>
+    <div class="modal fade" data-bs-backdrop="static" tabindex="-1" ref="modalRef">
+        <div class="modal-dialog" :class="classes">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ title }}</h5>
+                    <button type="button" class="btn-close" aria-label="Close" @click="hide()"></button>
+                </div>
+                <div class="modal-body">
+                    <slot name="body"></slot>
+                </div>
+                <div class="modal-footer">
+                    <slot name="footer"></slot>
+                    <button v-if="footerCloseBtn" type="button" class="btn btn-secondary" @click="hide()">
+                        Close
+                    </button>
                 </div>
             </div>
         </div>
@@ -34,7 +32,7 @@ const props = defineProps({
         type: Boolean,
         default: true,
     },
-    classes: Array
+    classes: String
 });
 
 const emit = defineEmits(['shown', 'hidden']);
