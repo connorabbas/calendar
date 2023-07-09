@@ -44,4 +44,20 @@ class EventController extends Controller
             'event' => $event
         ]);
     }
+
+    public function update($id, FullCalendarEventRequest $request): JsonResponse
+    {
+        $event = $this->calendarService->updateEvent(
+            $id,
+            Carbon::parse($request->start_time),
+            Carbon::parse($request->finish_time),
+            $request->event_type_id,
+            $request->comments,
+        );
+
+        return response()->json([
+            'message' => 'Success, your event has been updated.',
+            'event' => $event
+        ]);
+    }
 }

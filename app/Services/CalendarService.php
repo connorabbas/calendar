@@ -46,4 +46,22 @@ class CalendarService
 
         return FullCalendarEventTransformer::fromEvent($event);
     }
+
+    public function updateEvent(
+        int $eventId,
+        DateTime $startTime,
+        DateTime $finishTime,
+        int $eventTypeId,
+        string|null $comments = null,
+    ): FullCalendarEvent {
+        $event = Event::findOrFail($eventId);
+        $event->start_time = $startTime;
+        $event->finish_time = $finishTime;
+        $event->event_type_id = $eventTypeId;
+        $event->comments = $comments;
+        $event->save();
+        Log::info("Event: $event->id updated for User: $event->user_id");
+
+        return FullCalendarEventTransformer::fromEvent($event);
+    }
 }

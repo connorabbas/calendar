@@ -16,8 +16,9 @@ Route::middleware('auth')->group(function () {
         ->name('events.')
         ->group(function () {
             Route::get('/', 'search')->name('search');
-            Route::get('/{id}', 'get')->name('single');
             Route::post('/', 'store')->name('store');
+            Route::get('/{id}', 'get')->name('single');
+            Route::patch('/{id}', 'update')->name('update');
         });
 });
 

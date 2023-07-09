@@ -5,6 +5,7 @@ namespace Tests\Feature\Controllers;
 use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Event;
 use App\Models\EventType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -62,5 +63,28 @@ class EventControllerTest extends TestCase
             ->assertSessionHasErrors([
                 'finish_time'
             ]);
+    }
+
+    public function test_update_returns_302_when_logged_out(): void
+    {
+        $this->patch(route('events.update', ['id' => 123]))->assertStatus(302);
+    }
+
+    public function test_update_returns_200_when_logged_in(): void
+    {
+        $user = User::factory()->create();
+        $event = Event::factory()->create([
+            'user_id' => $user->id
+        ]);
+        $start = Carbon::now();
+        $finish = Carbon::now()->addHour();
+
+        $this->actingAs($user);
+        $this->patch(route('events.update', ['id' => $event->id]), [
+            'start_time' => $start,
+            'finish_time' => $finish,
+            'event_type_id' => $event->type->id,
+            'comments' => 'testing'
+        ])->assertStatus(200);
     }
 }
