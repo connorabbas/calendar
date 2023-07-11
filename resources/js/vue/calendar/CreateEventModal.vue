@@ -30,9 +30,9 @@
                 </div>
             </template>
             <template #footer>
-                <button class="btn btn-primary" @click="submitCreateEvent()" :disabled="submitBtnDisabled">
+                <button class="btn btn-primary" @click="submitCreateEvent()" :disabled="submitting">
                     <span v-if="submitting">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
                         Submitting...
                     </span>
                     <span v-else>
@@ -59,7 +59,6 @@ const props = defineProps({
 const emit = defineEmits(['event-created']);
 
 const submitting = ref(false);
-const submitBtnDisabled = ref(false);
 const eventType = ref(1);
 const startDate = ref(new Date());
 const finishDate = ref('');
@@ -112,13 +111,6 @@ function resetInputs() {
     comments.value = '';
 }
 
-watch(submitting, (newVal, oldVal) => {
-    if (newVal == true) {
-        submitBtnDisabled.value = true;
-    } else {
-        submitBtnDisabled.value = false;
-    }
-});
 /* watch(startDate, (newVal, oldVal) => {
     totalHours.value = Math.abs(finishDate.value - newVal) / 36e5;
 });

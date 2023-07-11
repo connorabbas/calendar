@@ -5,7 +5,7 @@
         <mini-toast ref="successToast" classes="shadow text-bg-success border-0" position-classes="bottom-0 end-0 p-5"
             close-btn-classes="btn-close-white">
             <template #body>
-                {{ successMessage }}
+                <i class="bi bi-check-circle-fill"></i>&nbsp; {{ successMessage }}
             </template>
         </mini-toast>
     </div>
