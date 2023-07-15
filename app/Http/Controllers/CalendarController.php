@@ -9,7 +9,7 @@ class CalendarController extends Controller
 {
     public function index(): View
     {
-        return view('calendar.index', [
+        return view('pages.calendar.index', [
             'eventTypes' => EventType::all(),
             'user' => auth()->user()
         ]);

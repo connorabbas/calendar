@@ -7,7 +7,7 @@ use Exception;
 class PermissionDeniedException extends Exception
 {
     public function __construct(
-        $message = "You do not have permission to access this resource.",
+        $message = "Permission Denied.",
         $code = 0,
         Exception $previous = null
     ) {
