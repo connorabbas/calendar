@@ -1,15 +1,14 @@
 <?php
 
-use App\Http\Controllers\CalendarController;
-use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\CalendarController;
 
 Auth::routes();
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::view('/', 'pages.home')->name('home');
     Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
     Route::controller(EventController::class)
         ->prefix('/events')
