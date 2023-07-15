@@ -6,7 +6,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Services\CalendarService;
 use Illuminate\Http\JsonResponse;
+use App\Exceptions\PermissionDeniedException;
 use App\Http\Requests\FullCalendarEventRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class EventController extends Controller
 {
@@ -25,8 +27,14 @@ class EventController extends Controller
 
     public function get(int $id): JsonResponse
     {
-        // TODO: EventPolicy
-        $event = $this->calendarService->getEvent($id);
+        try {
+            $event = $this->calendarService->getEvent($id, auth()->user());
+        } catch (ModelNotFoundException $e) {
+            abort(404, $e->getMessage());
+        } catch (PermissionDeniedException $e) {
+            abort(403, $e->getMessage());
+        }
+
         return response()->json($event);
     }
 
@@ -48,13 +56,20 @@ class EventController extends Controller
 
     public function update(int $id, FullCalendarEventRequest $request): JsonResponse
     {
-        $event = $this->calendarService->updateEvent(
-            $id,
-            Carbon::parse($request->start_time),
-            Carbon::parse($request->finish_time),
-            $request->event_type_id,
-            $request->comments,
-        );
+        try {
+            $event = $this->calendarService->updateEvent(
+                $id,
+                Carbon::parse($request->start_time),
+                Carbon::parse($request->finish_time),
+                $request->event_type_id,
+                $request->comments,
+                auth()->user()
+            );
+        } catch (ModelNotFoundException $e) {
+            abort(404, $e->getMessage());
+        } catch (PermissionDeniedException $e) {
+            abort(403, $e->getMessage());
+        }
 
         return response()->json([
             'message' => 'Success, your event has been updated.',
