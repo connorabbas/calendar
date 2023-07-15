@@ -22,5 +22,6 @@ class FullCalendarEvent
         //public readonly string|null $backgroundColor = null,
         //public readonly string|null $borderColor = null,
         public readonly array $extendedProps = [],
-    ) {}
+    ) {
+    }
 }
