@@ -3,15 +3,12 @@
 namespace App\Services;
 
 use DateTime;
-use App\Models\User;
 use App\Models\Event;
 use Illuminate\Support\Facades\Log;
-use App\Exceptions\PermissionDeniedException;
 use App\DataTransferObjects\FullCalendarEvent;
 use App\Transformers\FullCalendarEventTransformer;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class CalendarService
+class EventService
 {
     public function getEvents(): array
     {
@@ -23,19 +20,6 @@ class CalendarService
         }
 
         return $calendarEvents;
-    }
-
-    public function getEvent($id, User $user): FullCalendarEvent
-    {
-        $event = Event::with(['type', 'user'])->find($id);
-        if (!$event) {
-            throw new ModelNotFoundException();
-        }
-        if ($user->cannot('view', $event)) {
-            throw new PermissionDeniedException();
-        }
-
-        return FullCalendarEventTransformer::fromEvent($event);
     }
 
     public function createEvent(
@@ -58,20 +42,12 @@ class CalendarService
     }
 
     public function updateEvent(
-        int $id,
+        Event $event,
         DateTime $startTime,
         DateTime $finishTime,
         int $eventTypeId,
         string|null $comments = null,
-        User $user
     ): FullCalendarEvent {
-        $event = Event::with(['type', 'user'])->find($id);
-        if (!$event) {
-            throw new ModelNotFoundException();
-        }
-        if ($user->cannot('update', $event)) {
-            throw new PermissionDeniedException();
-        }
         $event->update([
             'start_time' => $startTime,
             'finish_time' => $finishTime,

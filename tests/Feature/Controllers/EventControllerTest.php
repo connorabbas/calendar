@@ -13,6 +13,18 @@ class EventControllerTest extends TestCase
 {
     use DatabaseTransactions;
 
+    public function test_index_returns_200_when_logged_in(): void
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+        $this->get(route('events.calendar'))->assertStatus(200);
+    }
+
+    public function test_index_returns_302_when_logged_out(): void
+    {
+        $this->get(route('events.calendar'))->assertStatus(302);
+    }
+
     public function test_search_returns_302_when_logged_out(): void
     {
         $this->get(route('events.search'))->assertStatus(302);

@@ -3,21 +3,20 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\CalendarController;
 
 Auth::routes();
 
 Route::middleware('auth')->group(function () {
     Route::view('/', 'pages.home')->name('home');
-    Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
     Route::controller(EventController::class)
         ->prefix('/events')
         ->name('events.')
         ->group(function () {
-            Route::get('/', 'search')->name('search');
+            Route::get('/', 'index')->name('calendar');
             Route::post('/', 'store')->name('store');
-            Route::get('/{id}', 'get')->name('single');
             Route::patch('/{id}', 'update')->name('update');
+            Route::get('/search', 'search')->name('search');
+            Route::get('/{id}', 'get')->name('single');
         });
 });
 

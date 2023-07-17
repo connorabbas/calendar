@@ -65,7 +65,7 @@ function showSuccessToast(message) {
 // Events
 const events = ref([]);
 function getEvents() {
-    axios.get('/events') // TODO: install ziggy
+    axios.get('/events/search') // TODO: install ziggy
         .then((response) => {
             events.value = response.data;
         })

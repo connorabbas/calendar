@@ -31,7 +31,7 @@
                     <ul class="navbar-nav me-auto">
                         @auth
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('calendar') }}">Calendar</a>
+                                <a class="nav-link" href="{{ route('events.calendar') }}">Events</a>
                             </li>
                         @endauth
                     </ul>
