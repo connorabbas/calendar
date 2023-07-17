@@ -7,16 +7,17 @@ use App\Models\Event;
 use Illuminate\Support\Facades\Log;
 use App\DataTransferObjects\FullCalendarEvent;
 use App\Transformers\FullCalendarEventTransformer;
+use Illuminate\Support\Collection;
 
 class EventService
 {
-    public function getEvents(): array
+    public function getEvents(): Collection
     {
-        $calendarEvents = [];
+        $calendarEvents = collect();
         $events = Event::all();
         $events->load(['type', 'user']);
         foreach ($events as $event) {
-            $calendarEvents[] = FullCalendarEventTransformer::fromEvent($event);
+            $calendarEvents->push(FullCalendarEventTransformer::fromEvent($event));
         }
 
         return $calendarEvents;
@@ -57,5 +58,25 @@ class EventService
         Log::info("Event: $event->id updated for User: $event->user_id");
 
         return FullCalendarEventTransformer::fromEvent($event);
+    }
+
+    /**
+     * Map a collection of FullCalendarEvent's to have the current User's Events highlighted
+     *
+     * @param Collection<FullCalendarEvent> $fullCalendarEvents
+     * @param int $userId
+     * @return array
+     */
+    public function highlightUserEvents(Collection $fullCalendarEvents, int $userId): Collection
+    {
+        $fullCalendarEvents = collect($fullCalendarEvents)->map(function ($event) use ($userId) {
+            if ($event->extendedProps['user']['id'] == $userId) {
+                $event->backgroundColor = '#0d6efd';
+                $event->borderColor = '#0d6efd';
+            }
+            return $event;
+        });
+
+        return $fullCalendarEvents;
     }
 }

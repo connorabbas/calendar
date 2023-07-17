@@ -28,29 +28,6 @@ class EventController extends Controller
         ]);
     }
 
-    public function search(): JsonResponse
-    {
-        $user = auth()->user();
-        //$fullCalendarEvents = $this->eventService->getEvents();
-        $fullCalendarEvents = collect($this->eventService->getEvents())->map(function ($event) use ($user) {
-            if ($event->extendedProps['user']['id'] == $user->id) {
-                $event->backgroundColor = '#0d6efd';
-                $event->borderColor = '#0d6efd';
-            }
-            return $event;
-        });
-
-        return response()->json($fullCalendarEvents);
-    }
-
-    public function get(int $id): JsonResponse
-    {
-        $event = Event::with(['type', 'user'])->findOrFail($id);
-        $this->authorize('view', $event);
-
-        return response()->json(FullCalendarEventTransformer::fromEvent($event));
-    }
-
     public function store(FullCalendarEventRequest $request): JsonResponse
     {
         $fullCalendarEvent = $this->eventService->createEvent(
@@ -77,7 +54,6 @@ class EventController extends Controller
             Carbon::parse($request->finish_time),
             $request->event_type_id,
             $request->comments,
-            auth()->user()
         );
 
         return response()->json([
