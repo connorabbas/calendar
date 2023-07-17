@@ -45,6 +45,7 @@ const calendarOptions = ref({
     ],
     initialView: 'dayGridMonth',
     themeSystem: 'bootstrap5',
+    expandRows: true,
     droppable: false,
     editable: true,
     selectable: true,

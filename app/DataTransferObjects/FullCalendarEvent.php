@@ -19,8 +19,8 @@ class FullCalendarEvent
         public readonly bool $editable = true,
         public readonly bool $startEditable = false,
         public readonly bool $durationEditable = false,
-        //public readonly string|null $backgroundColor = null,
-        //public readonly string|null $borderColor = null,
+        public string|null $backgroundColor = '#6c757d',
+        public string|null $borderColor = '#6c757d',
         public readonly array $extendedProps = [],
     ) {
     }

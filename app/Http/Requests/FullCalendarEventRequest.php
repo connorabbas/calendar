@@ -22,7 +22,7 @@ class FullCalendarEventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'start_time' => ['required', 'date'],
+            'start_time' => ['required', 'date', 'after:yesterday'],
             'finish_time' => ['required', 'date', 'after:start_time'],
             'event_type_id' => ['required', 'numeric', 'exists:event_types,id'],
             'comments' => ['nullable', 'string'],

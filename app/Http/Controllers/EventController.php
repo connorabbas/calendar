@@ -30,7 +30,16 @@ class EventController extends Controller
 
     public function search(): JsonResponse
     {
-        $fullCalendarEvents = $this->eventService->getEvents();
+        $user = auth()->user();
+        //$fullCalendarEvents = $this->eventService->getEvents();
+        $fullCalendarEvents = collect($this->eventService->getEvents())->map(function ($event) use ($user) {
+            if ($event->extendedProps['user']['id'] == $user->id) {
+                $event->backgroundColor = '#0d6efd';
+                $event->borderColor = '#0d6efd';
+            }
+            return $event;
+        });
+
         return response()->json($fullCalendarEvents);
     }
 
