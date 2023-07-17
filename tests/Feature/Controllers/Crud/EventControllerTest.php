@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Controllers;
+namespace Tests\Feature\Controllers\Crud;
 
 use Carbon\Carbon;
 use Tests\TestCase;

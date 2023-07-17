@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EventController;
+use App\Http\Controllers\Crud\EventController as EventCrudController;
 use App\Http\Controllers\Data\EventController as EventDataController;
 
 Auth::routes();
@@ -10,15 +10,17 @@ Auth::routes();
 Route::middleware('auth')->group(function () {
     Route::view('/', 'pages.home')->name('home');
 
+    // index view and crud actions related to Events
     Route::prefix('/events')
         ->name('events.')
-        ->controller(EventController::class)
+        ->controller(EventCrudController::class)
         ->group(function () {
             Route::get('/', 'index')->name('calendar');
             Route::post('/', 'store')->name('store');
             Route::patch('/{id}', 'update')->name('update');
         });
 
+    // Restful data endpoints
     Route::prefix('/data')
         ->name('data.')
         ->group(function () {
