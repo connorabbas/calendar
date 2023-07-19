@@ -4,10 +4,9 @@ namespace App\Services;
 
 use DateTime;
 use App\Models\Event;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use App\DataTransferObjects\FullCalendarEvent;
-use App\Transformers\FullCalendarEventTransformer;
-use Illuminate\Support\Collection;
 
 class EventService
 {
@@ -17,7 +16,7 @@ class EventService
         $events = Event::all();
         $events->load(['type', 'user']);
         foreach ($events as $event) {
-            $calendarEvents->push(FullCalendarEventTransformer::fromEvent($event));
+            $calendarEvents->push(FullCalendarEvent::fromEvent($event));
         }
 
         return $calendarEvents;
@@ -39,7 +38,7 @@ class EventService
         ]);
         Log::info("New Event: $event->id created for User: $event->user_id");
 
-        return FullCalendarEventTransformer::fromEvent($event);
+        return FullCalendarEvent::fromEvent($event);
     }
 
     public function updateEvent(
@@ -57,7 +56,7 @@ class EventService
         ]);
         Log::info("Event: $event->id updated for User: $event->user_id");
 
-        return FullCalendarEventTransformer::fromEvent($event);
+        return FullCalendarEvent::fromEvent($event);
     }
 
     /**

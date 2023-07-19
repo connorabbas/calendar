@@ -6,7 +6,7 @@ use App\Models\Event;
 use App\Services\EventService;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use App\Transformers\FullCalendarEventTransformer;
+use App\DataTransferObjects\FullCalendarEvent;
 
 class EventController extends Controller
 {
@@ -24,11 +24,9 @@ class EventController extends Controller
         );
     }
 
-    public function single(int $id): JsonResponse
+    public function single(Event $event): JsonResponse
     {
-        $event = Event::with(['type', 'user'])->findOrFail($id);
         $this->authorize('view', $event);
-
-        return response()->json(FullCalendarEventTransformer::fromEvent($event));
+        return response()->json(FullCalendarEvent::fromEvent($event));
     }
 }

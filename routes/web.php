@@ -17,7 +17,7 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
             Route::get('/', 'index')->name('calendar');
             Route::post('/', 'store')->name('store');
-            Route::patch('/{id}', 'update')->name('update');
+            Route::patch('/{event}', 'update')->name('update');
         });
 
     // Restful data endpoints
@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
                 ->controller(EventDataController::class)
                 ->group(function () {
                     Route::get('/search', 'search')->name('search');
-                    Route::get('/{id}', 'single')->name('single');
+                    Route::get('/{event}', 'single')->name('single');
                 });
         });
 });

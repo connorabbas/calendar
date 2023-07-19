@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from 'vue';
+import { ref, reactive, watch, onMounted } from 'vue';
 import axios from 'axios';
 import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -30,7 +30,7 @@ const props = defineProps({
 });
 
 // FullCalendar Options
-const calendarOptions = ref({
+const calendarOptions = reactive({
     headerToolbar: {
         left: 'prev,next today',
         center: 'title',
@@ -98,7 +98,7 @@ function handleEventClick(clickInfo) {
 
 // Lifecycle
 watch(events, (newEvents) => {
-    calendarOptions.value.events = newEvents;
+    calendarOptions.events = newEvents;
 });
 onMounted(() => {
     getEvents();

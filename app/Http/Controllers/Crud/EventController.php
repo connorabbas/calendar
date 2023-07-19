@@ -44,9 +44,8 @@ class EventController extends Controller
         ]);
     }
 
-    public function update(int $id, FullCalendarEventRequest $request): JsonResponse
+    public function update(Event $event, FullCalendarEventRequest $request): JsonResponse
     {
-        $event = Event::with(['type', 'user'])->findOrFail($id);
         $this->authorize('update', $event);
         $fullCalendarEvent = $this->eventService->updateEvent(
             $event,
