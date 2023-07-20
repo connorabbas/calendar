@@ -67,7 +67,7 @@ class EventControllerTest extends TestCase
 
     public function test_update_returns_302_when_logged_out(): void
     {
-        $this->patch(route('events.update', ['id' => 123]))->assertStatus(302);
+        $this->patch(route('events.update', ['event' => 123]))->assertStatus(302);
     }
 
     public function test_update_returns_403_with_different_user(): void
@@ -81,7 +81,7 @@ class EventControllerTest extends TestCase
         $finish = Carbon::now()->addHour();
 
         $this->actingAs($differentUser);
-        $this->patch(route('events.update', ['id' => $event->id]), [
+        $this->patch(route('events.update', ['event' => $event->id]), [
             'start_time' => $start,
             'finish_time' => $finish,
             'event_type_id' => $event->type->id,
@@ -101,7 +101,7 @@ class EventControllerTest extends TestCase
         $eventBefore = $event;
 
         $this->actingAs($user);
-        $this->patch(route('events.update', ['id' => $event->id]), [
+        $this->patch(route('events.update', ['event' => $event->id]), [
             'start_time' => $start,
             'finish_time' => $finish,
             'event_type_id' => $eventType->id,
@@ -113,5 +113,35 @@ class EventControllerTest extends TestCase
         $this->assertTrue($eventBefore->finish_time != $eventAfter->finish_time);
         $this->assertTrue($eventBefore->event_type_id != $eventAfter->event_type_id);
         $this->assertTrue($eventBefore->comments != $eventAfter->comments);
+    }
+
+    public function test_destroy_returns_302_when_logged_out(): void
+    {
+        $this->delete(route('events.destroy', ['event' => 123]))->assertStatus(302);
+    }
+
+    public function test_destroy_returns_403_with_different_user(): void
+    {
+        $user = User::factory()->create();
+        $differentUser = User::factory()->create();
+        $event = Event::factory()->create([
+            'user_id' => $user->id
+        ]);
+
+        $this->actingAs($differentUser);
+        $this->delete(route('events.destroy', ['event' => $event->id]))->assertStatus(403);
+    }
+
+    public function test_destroy_returns_200_with_correct_user(): void
+    {
+        $user = User::factory()->create();
+        $event = Event::factory()->create([
+            'user_id' => $user->id
+        ]);
+
+        $this->actingAs($user);
+        $this->delete(route('events.update', ['event' => $event->id]))->assertStatus(200);
+
+        $this->assertNull($event->fresh());
     }
 }

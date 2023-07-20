@@ -60,4 +60,14 @@ class EventController extends Controller
             'event' => $fullCalendarEvent
         ]);
     }
+
+    public function destroy(Event $event): JsonResponse
+    {
+        $this->authorize('delete', $event);
+        $event->delete();
+
+        return response()->json([
+            'message' => 'Success, your event has been cancelled.',
+        ]);
+    }
 }

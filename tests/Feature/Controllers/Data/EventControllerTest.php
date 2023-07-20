@@ -25,7 +25,7 @@ class EventControllerTest extends TestCase
 
     public function test_get_returns_302_when_logged_out()
     {
-        $this->get(route('data.events.single', ['id' => 1]))->assertStatus(302);
+        $this->get(route('data.events.single', ['event' => 1]))->assertStatus(302);
     }
 
     public function test_get_returns_403_when_different_user()
@@ -37,7 +37,7 @@ class EventControllerTest extends TestCase
         ]);
 
         $this->actingAs($differentUser);
-        $this->get(route('data.events.single', ['id' => $event->id]))->assertStatus(403);
+        $this->get(route('data.events.single', ['event' => $event->id]))->assertStatus(403);
     }
 
     public function test_get_returns_200_with_correct_user()
@@ -48,6 +48,6 @@ class EventControllerTest extends TestCase
         ]);
 
         $this->actingAs($user);
-        $this->get(route('data.events.single', ['id' => $event->id]))->assertStatus(200);
+        $this->get(route('data.events.single', ['event' => $event->id]))->assertStatus(200);
     }
 }

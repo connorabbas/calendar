@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/', 'index')->name('calendar');
             Route::post('/', 'store')->name('store');
             Route::patch('/{event}', 'update')->name('update');
+            Route::delete('/{event}', 'destroy')->name('destroy');
         });
 
     // Restful data endpoints
