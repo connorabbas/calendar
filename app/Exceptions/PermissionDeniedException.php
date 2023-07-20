@@ -8,7 +8,7 @@ class PermissionDeniedException extends Exception
 {
     public function __construct(
         $message = "Permission Denied.",
-        $code = 0,
+        $code = 403,
         Exception $previous = null
     ) {
         parent::__construct($message, $code, $previous);
