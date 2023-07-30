@@ -12,7 +12,7 @@ use App\DataTransferObjects\FullCalendarEvent;
 class EventService
 {
     /**
-     * Get all available events
+     * Get all available Event's
      */
     public function getAllEvents(): Collection
     {
@@ -26,6 +26,9 @@ class EventService
         return $calendarEvents;
     }
 
+    /**
+     * Get all available EventType's
+     */
     public function getAllEventTypes(): Collection
     {
         return EventType::all();

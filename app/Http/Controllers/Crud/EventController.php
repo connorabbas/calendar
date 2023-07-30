@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Crud;
 
 use Carbon\Carbon;
 use App\Models\Event;
-use App\Models\EventType;
 use Illuminate\View\View;
 use App\Services\EventService;
 use Illuminate\Http\JsonResponse;

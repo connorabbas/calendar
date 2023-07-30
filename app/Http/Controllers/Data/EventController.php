@@ -21,7 +21,8 @@ class EventController extends Controller
     {
         return response()->json(
             $this->eventService->highlightUserEvents(
-                $this->eventService->getAllEvents(), auth()->user()->id
+                $this->eventService->getAllEvents(),
+                auth()->user()->id
             )
         );
     }
