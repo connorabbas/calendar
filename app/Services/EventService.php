@@ -4,13 +4,17 @@ namespace App\Services;
 
 use DateTime;
 use App\Models\Event;
+use App\Models\EventType;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use App\DataTransferObjects\FullCalendarEvent;
 
 class EventService
 {
-    public function getEvents(): Collection
+    /**
+     * Get all available events
+     */
+    public function getAllEvents(): Collection
     {
         $calendarEvents = collect();
         $events = Event::all();
@@ -22,6 +26,14 @@ class EventService
         return $calendarEvents;
     }
 
+    public function getAllEventTypes(): Collection
+    {
+        return EventType::all();
+    }
+
+    /**
+     * Create a new Event
+     */
     public function createEvent(
         DateTime $startTime,
         DateTime $finishTime,
@@ -41,6 +53,9 @@ class EventService
         return FullCalendarEvent::fromEvent($event);
     }
 
+    /**
+     * Update an existing Event
+     */
     public function updateEvent(
         Event $event,
         DateTime $startTime,
@@ -77,5 +92,13 @@ class EventService
         });
 
         return $fullCalendarEvents;
+    }
+
+    /**
+     * (Soft) delete an Event model record
+     */
+    public function deleteEvent(Event $event): bool
+    {
+        return $event->delete();
     }
 }

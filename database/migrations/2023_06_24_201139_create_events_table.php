@@ -16,7 +16,8 @@ return new class () extends Migration {
             $table->foreignId('event_type_id')->index();
             $table->datetime('start_time');
             $table->datetime('finish_time');
-            $table->longText('comments')->nullable();
+            $table->text('comments')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

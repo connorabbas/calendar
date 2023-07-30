@@ -23,7 +23,7 @@ class EventController extends Controller
     public function index(): View
     {
         return view('pages.events.calendar', [
-            'eventTypes' => EventType::all(),
+            'eventTypes' => $this->eventService->getAllEventTypes(),
             'user' => auth()->user()
         ]);
     }
@@ -64,7 +64,7 @@ class EventController extends Controller
     public function destroy(Event $event): JsonResponse
     {
         $this->authorize('delete', $event);
-        $event->delete();
+        $this->eventService->deleteEvent($event);
 
         return response()->json([
             'message' => 'Success, your event has been cancelled.',

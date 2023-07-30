@@ -138,10 +138,11 @@ class EventControllerTest extends TestCase
         $event = Event::factory()->create([
             'user_id' => $user->id
         ]);
+        $this->assertNull($event->deleted_at);
 
         $this->actingAs($user);
         $this->delete(route('events.update', ['event' => $event->id]))->assertStatus(200);
 
-        $this->assertNull($event->fresh());
+        $this->assertNotNull($event->fresh()->deleted_at);
     }
 }
