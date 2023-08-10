@@ -1,4 +1,4 @@
-window.setTheme = function (theme) {
+function setTheme(theme) {
     var body = document.body;
     document.getElementById('themeValue').value = theme;
     document.getElementById('themeIcon').className = '';
@@ -32,10 +32,4 @@ window.setTheme = function (theme) {
     localStorage.setItem('theme', theme);
 }
 
-var siteTheme;
-if (localStorage.getItem('theme') === null) {
-    siteTheme = 'os';
-} else {
-    siteTheme = localStorage.getItem('theme');
-}
-window.setTheme(siteTheme);
+export { setTheme };

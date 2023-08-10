@@ -13,5 +13,5 @@ const mix = require('laravel-mix');
 
 mix.sass('resources/sass/app.scss', 'public/css')
     .js('resources/js/vendor.js', 'public/js')
-    .js('resources/js/theme-selection.js', 'public/js')
+    .js('resources/js/theme.js', 'public/js')
     .js('resources/js/vue/calendar/app.js', 'public/js/vue-calendar.js').vue();

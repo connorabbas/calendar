@@ -103,7 +103,7 @@
     </div>
 
     <!-- Scripts -->
-    <script type="text/javascript" src="{{ asset('js/theme-selection.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/theme.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/vendor.js') }}"></script>
     @stack('scripts')
 </body>
