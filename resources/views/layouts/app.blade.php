@@ -29,7 +29,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+                    <ul class="navbar-nav me-auto d-flex align-items-center">
                         @auth
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('events.calendar') }}">Events</a>
@@ -37,29 +37,8 @@
                         @endauth
                     </ul>
                     <!-- Right Side Of Navbar -->
-                    <div class="d-flex align-items-center">
-                        <ul class="navbar-nav me-auto">
-                            <input type="hidden" name="theme" id="themeValue" value="light">
-                            <li class="nav-item dropdown me-4">
-                                <a id="themeDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <i id="themeIcon" class="bi bi-circle-half"></i>&nbsp;Theme
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="themeDropdown">
-                                    <a id="osThemeOption" class="dropdown-item theme-dd-option" href="#"
-                                        onclick="window.setTheme('os')">
-                                        <i class="bi bi-circle-half"></i>&nbsp;OS Default
-                                    </a>
-                                    <a id="lightThemeOption" class="dropdown-item theme-dd-option" href="#"
-                                        onclick="window.setTheme('light')">
-                                        <i class="bi bi-brightness-high-fill"></i>&nbsp;Light
-                                    </a>
-                                    <a id="darkThemeOption" class="dropdown-item theme-dd-option" href="#"
-                                        onclick="window.setTheme('dark')">
-                                        <i class="bi bi-moon-fill"></i>&nbsp;Dark
-                                    </a>
-                                </div>
-                            </li>
+                    <div class="">
+                        <ul class="navbar-nav me-auto d-flex align-items-center">
                             <!-- Authentication Links -->
                             @guest
                                 @if (Route::has('login'))
@@ -92,6 +71,28 @@
                                     </div>
                                 </li>
                             @endguest
+                            <li class="nav-item dropdown ms-md-3">
+                                <input type="hidden" name="theme" id="themeValue" value="light">
+                                {{-- dropdown-toggle --}}
+                                <button id="themeDropdown" class="text-warning btn btn-sm btn-secondary" href="#" type="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <i id="themeIcon" class="bi bi-circle-half"></i>{{-- &nbsp;Theme --}}
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="themeDropdown">
+                                    <a id="osThemeOption" class="dropdown-item theme-dd-option" href="#"
+                                        onclick="window.setTheme('os')">
+                                        <i class="bi bi-circle-half"></i>&nbsp;OS Default
+                                    </a>
+                                    <a id="lightThemeOption" class="dropdown-item theme-dd-option" href="#"
+                                        onclick="window.setTheme('light')">
+                                        <i class="bi bi-brightness-high-fill"></i>&nbsp;Light
+                                    </a>
+                                    <a id="darkThemeOption" class="dropdown-item theme-dd-option" href="#"
+                                        onclick="window.setTheme('dark')">
+                                        <i class="bi bi-moon-fill"></i>&nbsp;Dark
+                                    </a>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>

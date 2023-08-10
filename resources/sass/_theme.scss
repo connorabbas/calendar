@@ -1,16 +1,26 @@
 @import 'variables';
 
 [data-bs-theme=light] {
-    /* --bs-body-bg: rgba(var(--bs-light-rgb), 1);
+    /* --bs-body-bg: #f8fafc; */
 
-    .navbar, .dropdown-menu {
+    /* .navbar, .dropdown-menu {
         background-color: #fff;
+    } */
+
+    /* .dropdown-item:hover, .dropdown-item:focus {
+        background-color: #e2e8f0;
     } */
 }
 
 /* Example making darker primary color elements */
 /* https://tailwindcss.com/docs/customizing-colors */
 [data-bs-theme=dark] {
+    /* --bs-body-bg: #111827;
+
+    .navbar {
+        background-color: #1e293b;
+    } */
+
     .btn-primary {
         --bs-btn-bg: #{$c-blue-3};
         --bs-btn-border-color: #{$c-blue-3};
