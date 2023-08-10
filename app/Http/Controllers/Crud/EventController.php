@@ -29,12 +29,13 @@ class EventController extends Controller
 
     public function store(FullCalendarEventRequest $request): JsonResponse
     {
+        $validated  = $request->validated();
         $fullCalendarEvent = $this->eventService->createEvent(
-            Carbon::parse($request->start_time),
-            Carbon::parse($request->finish_time),
-            $request->event_type_id,
+            Carbon::parse($validated['start_time']),
+            Carbon::parse($validated['finish_time']),
+            $validated['event_type_id'],
             auth()->user()->id,
-            $request->comments,
+            $validated['comments'],
         );
 
         return response()->json([
@@ -46,12 +47,13 @@ class EventController extends Controller
     public function update(Event $event, FullCalendarEventRequest $request): JsonResponse
     {
         $this->authorize('update', $event);
+        $validated  = $request->validated();
         $fullCalendarEvent = $this->eventService->updateEvent(
             $event,
-            Carbon::parse($request->start_time),
-            Carbon::parse($request->finish_time),
-            $request->event_type_id,
-            $request->comments,
+            Carbon::parse($validated['start_time']),
+            Carbon::parse($validated['finish_time']),
+            $validated['event_type_id'],
+            $validated['comments'],
         );
 
         return response()->json([

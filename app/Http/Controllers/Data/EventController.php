@@ -19,9 +19,10 @@ class EventController extends Controller
 
     public function search(): JsonResponse
     {
+        $allEvents = $this->eventService->getAllEvents();
         return response()->json(
             $this->eventService->highlightUserEvents(
-                $this->eventService->getAllEvents(),
+                $allEvents,
                 auth()->user()->id
             )
         );
