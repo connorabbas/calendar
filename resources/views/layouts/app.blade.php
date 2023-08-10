@@ -8,17 +8,14 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!-- Site title -->
     <title>{{ config('app.name', 'Calendar') }}</title>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
-<body class="" data-bs-theme="light">
+<body data-bs-theme="light">
     <div id="app">
         <nav class="navbar navbar-expand-md shadow mb-4">
             <div class="container">
@@ -41,22 +38,25 @@
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <div class="d-flex align-items-center">
-                        <ul class="navbar-nav ms-auto">
+                        <ul class="navbar-nav me-auto">
                             <input type="hidden" name="theme" id="themeValue" value="light">
                             <li class="nav-item dropdown me-4">
                                 <a id="themeDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <i id="themeIcon" class="bi bi-circle-half"></i> &nbsp; Theme
+                                    <i id="themeIcon" class="bi bi-circle-half"></i>&nbsp;Theme
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="themeDropdown">
-                                    <a id="osThemeOption" class="dropdown-item theme-dd-option" href="#" onclick="window.setTheme('os')">
-                                        <i class="bi bi-circle-half"></i> &nbsp; OS Default
+                                    <a id="osThemeOption" class="dropdown-item theme-dd-option" href="#"
+                                        onclick="window.setTheme('os')">
+                                        <i class="bi bi-circle-half"></i>&nbsp;OS Default
                                     </a>
-                                    <a id="lightThemeOption" class="dropdown-item theme-dd-option" href="#" onclick="window.setTheme('light')">
-                                        <i class="bi bi-brightness-high-fill"></i> &nbsp; Light
+                                    <a id="lightThemeOption" class="dropdown-item theme-dd-option" href="#"
+                                        onclick="window.setTheme('light')">
+                                        <i class="bi bi-brightness-high-fill"></i>&nbsp;Light
                                     </a>
-                                    <a id="darkThemeOption" class="dropdown-item theme-dd-option" href="#" onclick="window.setTheme('dark')">
-                                        <i class="bi bi-moon-fill"></i> &nbsp; Dark
+                                    <a id="darkThemeOption" class="dropdown-item theme-dd-option" href="#"
+                                        onclick="window.setTheme('dark')">
+                                        <i class="bi bi-moon-fill"></i>&nbsp;Dark
                                     </a>
                                 </div>
                             </li>

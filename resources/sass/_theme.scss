@@ -1,0 +1,32 @@
+@import 'variables';
+
+[data-bs-theme=light] {
+    /* --bs-body-bg: rgba(var(--bs-light-rgb), 1);
+
+    .navbar, .dropdown-menu {
+        background-color: #fff;
+    } */
+}
+
+/* Example making darker primary color elements */
+/* https://tailwindcss.com/docs/customizing-colors */
+[data-bs-theme=dark] {
+    .btn-primary {
+        --bs-btn-bg: #{$c-blue-3};
+        --bs-btn-border-color: #{$c-blue-3};
+
+        --bs-btn-hover-bg: #{$c-blue-2};
+        --bs-btn-hover-border-color: #{$c-blue-2};
+
+        --bs-btn-active-bg: #{$c-blue-1};
+        --bs-btn-active-border-color: #{$c-blue-1};
+        --bs-btn-disabled-bg: #{$c-blue-1};
+        --bs-btn-disabled-border-color: #{$c-blue-1};
+        /* --bs-btn-focus-border-color: #{rgba($white, .5)};
+        --bs-btn-focus-box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .2); */
+    }
+
+    .dropdown-menu {
+        --bs-dropdown-link-active-bg: #{$c-blue-3}; 
+    }
+}
