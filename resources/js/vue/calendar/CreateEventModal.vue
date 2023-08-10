@@ -15,12 +15,12 @@
                     <div class="mb-3">
                         <label class="form-label">Start</label>
                         <VueDatePicker v-model="startDate" :max-date="finishDate" :is-24="false"
-                            input-class-name="form-control" />
+                            input-class-name="form-control" :dark="theme == 'dark'" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Finish</label>
                         <VueDatePicker v-model="finishDate" :min-date="startDate" :is-24="false"
-                            input-class-name="form-control" />
+                            input-class-name="form-control" :dark="theme == 'dark'" />
                     </div>
                     <div class="mb-0">
                         <label class="form-label">Comments</label>
@@ -45,7 +45,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, computed } from 'vue';
 import axios from 'axios';
 import Modal from '../components/bootstrap/Modal.vue';
 import VueDatePicker from '@vuepic/vue-datepicker'; // https://vue3datepicker.com/
@@ -64,9 +64,11 @@ const startDate = ref(new Date());
 const finishDate = ref('');
 const comments = ref('');
 const totalHours = ref(0);
+const theme = ref(null);
 
 var createEventModal = ref(null); // template ref
 function showCreateEventModal(dateDetails) {
+    theme.value = document.getElementById('themeValue').value;
     var startTime = new Date(dateDetails.start);
     var currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
@@ -79,6 +81,7 @@ function showCreateEventModal(dateDetails) {
     }
     startDate.value = startTime;
     createEventModal.value.show();
+    console.log(document.getElementById('themeValue').value);
 }
 
 function submitCreateEvent() {
@@ -116,6 +119,10 @@ function resetInputs() {
 });
 watch(finishDate, (newVal, oldVal) => {
     totalHours.value = Math.abs(newVal - startDate.value) / 36e5;
+}); */
+
+/* const theme = computed(() => {
+    return document.getElementById('themeValue').value;
 }); */
 
 defineExpose({

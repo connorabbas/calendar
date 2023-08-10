@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,14 +17,17 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
-<body class="bg-light">
+
+<body class="" data-bs-theme="light">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md shadow mb-4">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     FullCalendar App
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -36,38 +40,60 @@
                         @endauth
                     </ul>
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">Login</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">Register</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                    <div class="d-flex align-items-center">
+                        <ul class="navbar-nav ms-auto">
+                            <input type="hidden" name="theme" id="themeValue" value="light">
+                            <li class="nav-item dropdown me-4">
+                                <a id="themeDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <i id="themeIcon" class="bi bi-circle-half"></i> &nbsp; Theme
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        Logout
+                                <div class="dropdown-menu" aria-labelledby="themeDropdown">
+                                    <a id="osThemeOption" class="dropdown-item theme-dd-option" href="#" onclick="window.setTheme('os')">
+                                        <i class="bi bi-circle-half"></i> &nbsp; OS Default
                                     </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
+                                    <a id="lightThemeOption" class="dropdown-item theme-dd-option" href="#" onclick="window.setTheme('light')">
+                                        <i class="bi bi-brightness-high-fill"></i> &nbsp; Light
+                                    </a>
+                                    <a id="darkThemeOption" class="dropdown-item theme-dd-option" href="#" onclick="window.setTheme('dark')">
+                                        <i class="bi bi-moon-fill"></i> &nbsp; Dark
+                                    </a>
                                 </div>
                             </li>
-                        @endguest
-                    </ul>
+                            <!-- Authentication Links -->
+                            @guest
+                                @if (Route::has('login'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('login') }}">Login</a>
+                                    </li>
+                                @endif
+
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('register') }}">Register</a>
+                                    </li>
+                                @endif
+                            @else
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ Auth::user()->name }}
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </li>
+                            @endguest
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -77,7 +103,9 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/vendor.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/theme-selection.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/vendor.js') }}"></script>
     @stack('scripts')
 </body>
+
 </html>
