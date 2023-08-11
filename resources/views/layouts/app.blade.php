@@ -14,7 +14,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-    <!-- Scripts (Deffered) -->
+    <!-- Scripts (deferred) -->
     <script type="text/javascript" src="{{ asset('js/app.js') }}" defer></script>
     @stack('scripts')
 </head>
