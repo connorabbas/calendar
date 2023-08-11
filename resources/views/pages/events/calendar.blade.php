@@ -14,5 +14,5 @@
 @endsection
 
 @push('scripts')
-    <script type="text/javascript" src="{{ asset('js/vue-calendar.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/vue-calendar.js') }}" defer></script>
 @endpush

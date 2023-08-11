@@ -13,6 +13,10 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="{{ asset('js/app.js') }}" defer></script>
+    @stack('scripts')
 </head>
 
 <body data-bs-theme="light">
@@ -104,10 +108,6 @@
             @yield('content')
         </main>
     </div>
-
-    <!-- Scripts -->
-    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
-    @stack('scripts')
 </body>
 
 </html>
