@@ -1,25 +1,24 @@
 @import 'variables';
 
+/* Example of altering style rules based on selected theme */
+/* https://getbootstrap.com/docs/5.3/utilities/background/ */
+
 [data-bs-theme=light] {
-    /* --bs-body-bg: #f8fafc; */
-
-    /* .navbar, .dropdown-menu {
+    .themed-app-bg {
+        background-color: $light-bg-subtle;
+    }
+    header .navbar {
         background-color: #fff;
-    } */
-
-    /* .dropdown-item:hover, .dropdown-item:focus {
-        background-color: #e2e8f0;
-    } */
+    }
 }
 
-/* Example making darker primary color elements */
-/* https://tailwindcss.com/docs/customizing-colors */
 [data-bs-theme=dark] {
-    /* --bs-body-bg: #111827;
-
-    .navbar {
-        background-color: #1e293b;
-    } */
+    .themed-app-bg {
+        background-color: $dark-bg-subtle-dark;
+    }
+    header .navbar {
+        background-color: $dark;
+    }
 
     .btn-primary {
         --bs-btn-bg: #{$c-blue-3};
@@ -35,7 +34,6 @@
         /* --bs-btn-focus-border-color: #{rgba($white, .5)};
         --bs-btn-focus-box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .2); */
     }
-
     .dropdown-menu {
         --bs-dropdown-link-active-bg: #{$c-blue-3}; 
     }

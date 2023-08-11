@@ -10,7 +10,7 @@ function setTheme(theme) {
     }
 
     if (theme == 'dark') {
-        iconClasses += 'bi-moon-fill';
+        iconClasses += 'bi-moon-stars-fill';
         body.dataset.bsTheme = theme;
         document.getElementById('darkThemeOption').classList.add('active');
     } else if (theme == 'light') {
