@@ -10,4 +10,4 @@ const app = createApp({
     },
 });
 app.config.globalProperties.bootstrap = bootstrap;
-app.mount('#app');
+app.mount('#calendarApp');

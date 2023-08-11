@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <div id="app">
+                <div id="calendarApp">
                     <calendar-app :current-user="{{ json_encode($user) }}" :event-types="{{ json_encode($eventTypes) }}">
                     </calendar-app>
                 </div>
