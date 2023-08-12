@@ -16,6 +16,12 @@
 
     <!-- Scripts (deferred) -->
     <script type="text/javascript" src="{{ asset('js/app.js') }}" defer></script>
+    @auth
+        <script defer>
+            window.sessionLifetime = parseInt('{{ config('session.lifetime', "120") }}');
+        </script>
+        <script type="text/javascript" src="{{ asset('js/session-timeout.js') }}" defer></script>
+    @endauth
     @stack('scripts')
 </head>
 
@@ -28,6 +34,9 @@
             <div id="mainContent" class="py-5">
                 @yield('content')
             </div>
+            @auth
+                @include('modules.timeout_modal')
+            @endauth
         </main>
         <footer class="mt-auto">
             @include('modules.footer')
