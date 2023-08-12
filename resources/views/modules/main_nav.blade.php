@@ -27,7 +27,6 @@
                                 <a class="nav-link {{ is_active_route('login') }}" href="{{ route('login') }}">Login</a>
                             </li>
                         @endif
-
                         @if (Route::has('register'))
                             <li class="nav-item">
                                 <a class="nav-link {{ is_active_route('register') }}"
@@ -42,9 +41,9 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i
+                                    onclick="event.preventDefault();document.getElementById('logoutForm').submit();"><i
                                         class="bi bi-box-arrow-left"></i>&nbsp;Logout</a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                <form id="logoutForm" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
                             </div>
