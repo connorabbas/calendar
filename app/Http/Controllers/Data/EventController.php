@@ -17,14 +17,10 @@ class EventController extends Controller
         $this->eventService = $eventService;
     }
 
-    public function search(): JsonResponse
+    public function index(): JsonResponse
     {
-        $allEvents = $this->eventService->getAllEvents();
         return response()->json(
-            $this->eventService->highlightUserEvents(
-                $allEvents,
-                auth()->user()->id
-            )
+            $this->eventService->getAllEvents()->highlightUserEvents(auth()->user()->id)
         );
     }
 

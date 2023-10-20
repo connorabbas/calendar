@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
                 ->name('events.')
                 ->controller(EventDataController::class)
                 ->group(function () {
-                    Route::get('/search', 'search')->name('search');
+                    Route::get('/', 'index')->name('index');
                     Route::get('/{event}', 'single')->name('single');
                 });
         });
