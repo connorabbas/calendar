@@ -2,6 +2,7 @@
 
 namespace App\Collections;
 
+use TypeError;
 use InvalidArgumentException;
 use Illuminate\Support\Collection;
 
@@ -21,24 +22,44 @@ abstract class TypedCollection extends Collection
         }
 
         foreach ($this->items as $item) {
-            if (!is_a($item, $this->type)) {
-                throw new InvalidArgumentException("This collection can only contain instances of {$this->type}");
-            }
+            $this->checkType($item);
         }
     }
 
-    /**
-     * Override collection method to ensure the type
-     */
-    public function push(...$values)
+    protected function checkType($item): void
+    {
+        if ((class_exists($this->type) || interface_exists($this->type)) && !is_a($item, $this->type)) {
+            throw new TypeError("This collection can only contain instances of {$this->type}");
+        } elseif (gettype($item) !== $this->type) {
+            throw new TypeError("This collection can only contain values of type {$this->type}");
+        }
+    }
+
+    public function offsetSet($key, $value): void
+    {
+        $this->checkType($value);
+        parent::offsetSet($key, $value);
+    }
+
+    public function push(...$values): self
     {
         foreach ($values as $value) {
-            if (!is_a($value, $this->type)) {
-                throw new InvalidArgumentException("This collection can only contain instances of {$this->type}");
-            }
-            $this->items[] = $value;
+            $this->checkType($value);
+            parent::push($value);
         }
 
         return $this;
+    }
+
+    public function prepend($value, $key = null): self
+    {
+        $this->checkType($value);
+        return parent::prepend($value, $key);
+    }
+
+    public function put($key, $value): self
+    {
+        $this->checkType($value);
+        return parent::put($key, $value);
     }
 }
